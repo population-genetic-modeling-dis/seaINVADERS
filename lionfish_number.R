@@ -14,9 +14,9 @@ source("demographic parameters.R")
 
 
 #### User Inputs for lionfish_number.R ####
-np <- np-1 #Number of processors to use
+np <- NP-1 #Number of processors to use
 BS <- 10 #Number of simulations to run with each source
-RUN.MONTH <- 12*2     # Number of 12 months * number of years to run model
+RUN.MONTH <- MONTHS*MODEL_DURATION     # Number of 12 months * number of years to run model
 initial.females <- seq(1,8,by=1) # vector of number of starting female lionfish
 var.rpr<-seq(0.25,1,length.out=4)
 

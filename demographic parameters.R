@@ -1,5 +1,8 @@
 #### Parameters for space_invaders.R model #####
-np <- 20
+NP <- 20  			#Number of processors to use
+MONTHS <- 12   		#Number of "months" or portions to divide a year into
+MODEL_DURATION <- 2	#Number of years to run the model
+
 
 #### Demographic Parameters for Model ####
 
