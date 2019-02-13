@@ -14,7 +14,7 @@ source("demographic parameters.R")
 
 
 #### User Inputs for lionfish_number.R ####
-
+BS <- NUM_BOOTSTRAPS
 RUN.MONTH <- MONTHS*MODEL_DURATION     # Number of 12 months * number of years to run model
 initial.females <- seq(1,8,by=1) # vector of number of starting female lionfish
 var.rpr<-seq(0.25,1,length.out=4)
