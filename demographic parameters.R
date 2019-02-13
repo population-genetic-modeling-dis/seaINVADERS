@@ -1,3 +1,6 @@
+#### Parameters for space_invaders.R model #####
+np <- 20
+
 #### Demographic Parameters for Model ####
 
 ##Native Range Demographics

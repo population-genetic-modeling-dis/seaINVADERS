@@ -1,6 +1,6 @@
 #### Recolonization model run script ####
-## Jason Selwyn
-## Last Mod: 2016-Sept-21
+## Jason Selwyn, Chris Bird
+## Last Mod: 2019-13-02
 
 rm(list=ls())
 library(parallel)
@@ -14,7 +14,7 @@ source("demographic parameters.R")
 
 
 #### User Inputs for lionfish_number.R ####
-np <- 40-1 #Number of processors to use
+np <- np-1 #Number of processors to use
 BS <- 10 #Number of simulations to run with each source
 RUN.MONTH <- 12*2     # Number of 12 months * number of years to run model
 initial.females <- seq(1,8,by=1) # vector of number of starting female lionfish
