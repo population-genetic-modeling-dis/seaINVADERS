@@ -12,14 +12,14 @@ source.name <- "IndoP"
 destination.name <- "GOM"
 
 #proportion.successful.recruits variables (All "prop" variables must be greater than 0, and less than or equal to 1)
-min_prop <- #This is the minimum proportion of successful recruits
-max_prop <- #This is the maximum proportion of successful
-prop_increment <- #ex. If prop_increment=.05, then the model will count (.05, .1, .15) 
+min_prop <- .25 #This is the minimum proportion of successful recruits
+max_prop <- 1 #This is the maximum proportion of successful
+prop_increment <- 4 #ex. If prop_increment=4, then the model will count (.25,.5,.75,1) 
 
 #initial.females variables
-min_f_number <- #This is the minimum # of females.
-max_f_number <- #This is the maximum # of females.
-f_increment <- #ex. If f_increment=5, then model will count (5, 10, 15, 20...etc)
+min_f_number <- 1 #This is the minimum # of females.
+max_f_number <- 8 #This is the maximum # of females.
+f_increment <- 1 #ex. If f_increment=5, then model will count (5, 10, 15, 20...etc)
 
 ##Native Range Demographics
 #from arlequin

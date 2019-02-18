@@ -10,7 +10,7 @@ library(snow)
 library(ggplot2)
 #### Source Functions ####
 source("model_functions.R")
-source("demographic_parameters.R")
+source("model_parameters.R")
 
 
 #### User Inputs for lionfish_number.R ####
