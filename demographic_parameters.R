@@ -15,6 +15,9 @@ NUM_BOOTSTRAPS <- 10 #Number of simulations to run with each source
 source.theta<-7.63797
 source.theta.sd<-2.65535
 
+destination.theta<-
+destination.theta.sd<-
+
 ## Haplotype information
 #All haplotype info below from JJohnson Spreadsheet
 atlantic.hap<-c(194,172,24,19,14,19,15,1,1)

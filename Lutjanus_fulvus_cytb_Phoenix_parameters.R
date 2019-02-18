@@ -11,14 +11,9 @@ NUM_BOOTSTRAPS <- 10 #Number of simulations to run with each source
 
 ##Native Range Demographics
 #from arlequin
-japan.theta<-5.59781
-japan.theta.sd<-2.73165
 
-indonesia.theta<-7.63797
-indonesia.theta.sd<-2.65535
-
-atlantic.theta<-1.78966
-atlantic.theta.sd<-0.60442
+source.theta<-7.63797
+source.theta.sd<-2.65535
 
 ## Haplotype information
 #All haplotype info below from JJohnson Spreadsheet
