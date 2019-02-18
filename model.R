@@ -1,6 +1,6 @@
 #### Recolonization model run script ####
 ## Jason Selwyn, Chris Bird
-## Last Mod: 2019-13-02
+## Last Mod: 2019-18-02
 
 rm(list=ls())
 library(parallel)
@@ -10,7 +10,7 @@ library(snow)
 library(ggplot2)
 #### Source Functions ####
 source("model_functions.R")
-source("demographic parameters.R")
+source("demographic_parameters.R")
 
 
 #### User Inputs for lionfish_number.R ####
@@ -21,14 +21,44 @@ var.rpr<-seq(0.25,1,length.out=4)
 
 
 #### Setup Data ####
-region.sources<-list(Atlantic=atlantic.hap,Caribbean=carib.hap,GoMx=gomx.hap)
+#region.sources<-list(Atlantic=atlantic.hap,Caribbean=carib.hap,GoMx=gomx.hap)
+#CEB HapModel
+if(exists("source.hap")){haplotype.sources<-list(source.name=source.hap)}
 
-all.thetas<-indonesia.theta+(2:-2)*indonesia.theta.sd
-native.dist<-as.list(all.thetas)
-names(native.dist)<-paste('Sim.Native','theta',all.thetas,sep='.')
 
-sources<-c(native.dist,region.sources[-3])
-destinations<-c(region.sources)
+
+#all.thetas<-indonesia.theta+(2:-2)*indonesia.theta.sd
+#CEB
+all.thetas<-source.theta+(2:-2)*source.theta.sd
+#native.dist<-as.list(all.thetas)
+source.dist<-as.list(all.thetas)
+#names(native.dist)<-paste('Sim.native','theta',all.thetas,sep='.')
+#CEB
+names(source.dist)<-paste('Sim',source.name,'theta',all.thetas,sep='.')
+
+
+#sources<-c(native.dist,region.sources[-3])
+#CEB
+if(exists("source.hap")){
+	if(exits("source.theta"){
+		sources<-c(source.dist,haplotype.sources)
+	} else {
+		sources<-c(haplotype.sources)
+	}
+} else {
+	if(exits("source.theta"){
+		sources<-c(source.dist)
+	} else {
+		stop("Space Invaders Haulted, no source data provided")
+	}
+
+}
+
+#destinations<-c(haplotype.sources)
+#CEB
+haplotype.destinations<-list(destination.name=destination.hap)
+
+destinations<-c(haplotype.destinations)
 
 for.workers<-ls()
 
