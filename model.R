@@ -40,13 +40,13 @@ names(source.dist)<-paste('Sim',source.name,'theta',all.thetas,sep='.')
 #sources<-c(native.dist,region.sources[-3])
 #CEB
 if(exists("source.hap")){
-	if(exits("source.theta"){
+	if(exits("source.theta")){
 		sources<-c(source.dist,haplotype.sources)
 	} else {
 		sources<-c(haplotype.sources)
 	}
 } else {
-	if(exits("source.theta"){
+	if(exits("source.theta")){
 		sources<-c(source.dist)
 	} else {
 		stop("Space Invaders Haulted, no source data provided")
