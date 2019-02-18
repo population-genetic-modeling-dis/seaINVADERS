@@ -8,21 +8,21 @@ MODEL_DURATION <- 2	#Number of years to run the model
 
 np <- NP-1 #Number of processors to use
 NUM_BOOTSTRAPS <- 10 #Number of simulations to run with each source
+source.name <- "IndoP"
+destination.name <- "GOM"
+
 
 ##Native Range Demographics
 #from arlequin
-
-source.theta<-7.63797
-source.theta.sd<-2.65535
-
-destination.theta<-
-destination.theta.sd<-
+source.theta <- 7.63797
+source.theta.sd <- 2.65535
+#destination.theta <- 
+#destination.theta.sd <-
 
 ## Haplotype information
-#All haplotype info below from JJohnson Spreadsheet
-atlantic.hap<-c(194,172,24,19,14,19,15,1,1)
-carib.hap<-c(159,405,3,34,0,0,0,0,0)
-gomx.hap<-c(52,113,0,23,0,0,0,0,0)
+#All haplotype info below from JJohnson Spreadsheet (If source.hap doesn't exist, comment out using #)
+source.hap<-c(194,172,24,19,14,19,15,1,1)
+destination.hap<-c(159,405,3,34,0,0,0,0,0)
 
 ## Demographic Parameters
 BIN             <- 12     # Number of different age-classes
