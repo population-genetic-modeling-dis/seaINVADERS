@@ -16,8 +16,8 @@ source("demographic_parameters.R")
 #### User Inputs for lionfish_number.R ####
 BS <- NUM_BOOTSTRAPS
 RUN.MONTH <- MONTHS*MODEL_DURATION     # Number of 12 months * number of years to run model
-initial.females <- seq(1,8,by=1) # vector of number of starting female lionfish
-var.rpr<-seq(0.25,1,length.out=4)
+initial.females <- seq(min_f_number,max_f_number,by=f_increment) # vector of number of starting female lionfish
+proportion.successful.recruits<-seq(min_prop,max_prop,length.out=prop_increment)
 
 
 #### Setup Data ####
@@ -70,7 +70,7 @@ clusterExport(cl=cluster, as.list(for.workers),
 clusterEvalQ(cluster, {library(abind)})
 
 #### Run the model ####
-for(v in var.rpr){
+for(v in proportion.successful.recruits){
   clusterExport(cl=cluster, list('v'),envir=environment())
   for(S in 1:length(sources)){
     clusterExport(cl=cluster, list('S'),envir=environment())
