@@ -16,10 +16,9 @@ source.theta<-7.63797
 source.theta.sd<-2.65535
 
 ## Haplotype information
-#All haplotype info below from JJohnson Spreadsheet
-atlantic.hap<-c(194,172,24,19,14,19,15,1,1)
-carib.hap<-c(159,405,3,34,0,0,0,0,0)
-gomx.hap<-c(52,113,0,23,0,0,0,0,0)
+source.hap<-c(194,172,24,19,14,19,15,1,1)
+destination.hap<-c(159,405,3,34,0,0,0,0,0)
+
 
 ## Demographic Parameters
 BIN             <- 12     # Number of different age-classes
