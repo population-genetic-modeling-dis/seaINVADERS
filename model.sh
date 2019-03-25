@@ -14,4 +14,4 @@
 module load openmpi
 module load R/openmpi/intel/3.2.2
 
-mpirun -np 1 R CMD BATCH model.R
+mpirun -np 1 R CMD BATCH model.R 

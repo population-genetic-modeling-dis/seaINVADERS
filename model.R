@@ -14,6 +14,7 @@ source("model_parameters.R")
 
 
 #### User Inputs for lionfish_number.R ####
+np <- NP-1 #Number of processors to use
 BS <- NUM_BOOTSTRAPS
 RUN.MONTH <- MONTHS*MODEL_DURATION     # Number of 12 months * number of years to run model
 initial.females <- seq(min_f_number,max_f_number,by=f_increment) # vector of number of starting female lionfish
@@ -75,7 +76,7 @@ for(v in proportion.successful.recruits){
   for(S in 1:length(sources)){
     clusterExport(cl=cluster, list('S'),envir=environment())
     
-    s<-parallel::parSapply(cl=cluster, initial.females, function(x) replicate(BS, run.Model(FEMALE.START=x,hap.num.start.freq=sources[[S]],RUN.MONTH,Demo.param,RPR,F,variable.RPR=v), 
+    s<-parallel::parSapply(cl=cluster, initial.females, function(x) replicate(BS, run.Model(FEMALE.START=x,hap.num.start.freq=sources[[S]],RUN.MONTH,Demo.param,RPR,F,variable.RPR=v,THIN=thin), 
                                                                               simplify = "array"), simplify = 'array')
     
     print('Finished Cluster Simulations')
@@ -103,21 +104,21 @@ for(v in proportion.successful.recruits){
     #Problems with this resulting in this error: 
     #/home/apps/R/gcc/3.3.2/lib64/R/bin/BATCH: line 60: 94950 Killed                  ${R_HOME}/bin/R -f ${in} ${opts} ${R_BATCH_OPTIONS} > ${out} 2>&1
     
-    # pdf(paste('./',names(sources)[S],'-plots.pdf',sep=''),width=100,height=100,onefile = T)
-    # 
-    # total.plot<-plotting.model(s,initial.females,type='total',mem.redux=T)
-    # print(total.plot)
-    # frequency.plot<-plotting.model(f,initial.females,type='freq',mem.redux=T)
-    # print(frequency.plot)
-    # 
-    # dev.off()
-    # 
-    # rm(s)
-    # rm(total.plot)
-    # rm(frequency.plot)
-    # gc()
-    # 
-    # print('Finished simulation plots')
+    pdf(paste('./',names(sources)[S],'-plots.pdf',sep=''),width=100,height=100,onefile = T)
+    
+    total.plot<-plotting.model(s,initial.females,type='total',mem.redux=T)
+    print(total.plot)
+    frequency.plot<-plotting.model(f,initial.females,type='freq',mem.redux=T)
+    print(frequency.plot)
+    
+    dev.off()
+    
+    rm(s)
+    rm(total.plot)
+    rm(frequency.plot)
+    gc()
+    
+    print('Finished simulation plots')
     
     #### Statistical Analysis ####
     

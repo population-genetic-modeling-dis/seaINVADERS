@@ -6,27 +6,26 @@ MODEL_DURATION <- 2	#Number of years to run the model
 
 #### Demographic Parameters for Model ####
 
-np <- NP-1 #Number of processors to use
+#np <- NP-1 #Number of processors to use
 NUM_BOOTSTRAPS <- 10 #Number of simulations to run with each source
+thin <- FALSE 	#Save only first and last month of simulated pops?
 source.name <- "IndoP"
 destination.name <- "GOM"
 
 #proportion.successful.recruits variables (All "prop" variables must be greater than 0, and less than or equal to 1)
 min_prop <- .25 #This is the minimum proportion of successful recruits
 max_prop <- 1 #This is the maximum proportion of successful
-prop_increment <- 4 #ex. If prop_increment=4, then the model will count (.25,.5,.75,1) 
+prop_increment <- 2 #ex. If prop_increment=4, then the model will count (.25,.5,.75,1) 
 
 #initial.females variables
-min_f_number <- 1 #This is the minimum # of females.
-max_f_number <- 8 #This is the maximum # of females.
-f_increment <- 1 #ex. If f_increment=5, then model will count (5, 10, 15, 20...etc)
+min_f_number <- 10 #This is the minimum # of females.
+max_f_number <- 100 #This is the maximum # of females.
+f_increment <- 5 #ex. If f_increment=5, then model will count (5, 10, 15, 20...etc)
 
 ##Native Range Demographics
 #from arlequin
 source.theta <- 7.63797
 source.theta.sd <- 2.65535
-#destination.theta <- 
-#destination.theta.sd <-
 
 ## Haplotype information
 #All haplotype info below from JJohnson Spreadsheet (If source.hap doesn't exist, comment out using #)
