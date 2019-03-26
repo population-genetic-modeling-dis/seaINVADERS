@@ -96,31 +96,36 @@ model.func <- function(model.output,s.f.sfreq,M,REC.IND,AM,JM,fem.perc,hap.num,v
   temp.m <- model.output[,,M]
   # Initializes the matrix at month one with user defined starting female lionfish distributed
   # randomly across haplotype according to defined hap freqs.
+  age_bins=dim(model.output)[2]
   if(M==1){
-    temp.m[,1:11] <- 0
-    temp.m[,12]   <- s.f.sfreq
+    #temp.m[,1:11] <- 0  
+    temp.m[,1:(age_bins-1)] <- 0
+    #temp.m[,12]   <- s.f.sfreq , CEB: 12 is the number fed to BIN in parameters, dim(model.output)[2] is the same thing
+    temp.m[,age_bins]   <- s.f.sfreq
     if(verbose){
       print("Model Initialization...")
     }
   } else {
     temp.e <- model.output[,,M-1]
-    for( j in 1:dim(model.output)[2]) { #For each age bin
+    for( j in 1:age_bins) { #For each age bin
       if(j == 1){
         #Mortality calculation with no stochasticity
-        #temp.m[,,j]<-((temp.e[,,12]/fem.perc)*(SR.vec*REC.IND))
+        #temp.m[,,j]<-((temp.e[,,age_bins]/fem.perc)*(SR.vec*REC.IND))
         #Stochastically adds mortality across haplotypes based on previous months hap freq
-        #print(temp.e[,12])
-        #hap.freq.e0<-freq.convert(temp.e[,12])
+        #print(temp.e[,age_bins])
+        #hap.freq.e0<-freq.convert(temp.e[,age_bins])
         var.temp<-list(fem.perc,REC.IND)
-        #t<-sample(1:hap.num,size=n.size(temp.e[l,,12],var.temp),replace=TRUE,prob = hap.freq.e0)
-        #numb.produced<-n.size(temp.e[,12],var.temp)
-        numb.produced<-n.size(temp.e[,12],REC.IND)
-        temp.m[,j]<-c(rmultinom(1,numb.produced,temp.e[,12]))
+        #t<-sample(1:hap.num,size=n.size(temp.e[l,,age_bins],var.temp),replace=TRUE,prob = hap.freq.e0)
+        #numb.produced<-n.size(temp.e[,age_bins],var.temp)
+		
+		#CEB: To have non-reproductive seasons (i.e. Months 5,6,7) Skip the next 2 lines when M==5:7
+        numb.produced<-n.size(temp.e[,age_bins],REC.IND)
+        temp.m[,j]<-c(rmultinom(1,numb.produced,temp.e[,age_bins]))
         # 
         # if(sum(hap.freq.e0)==0){temp.m[,j]<-0;print('FLAG')}
-        # else{temp.m[,j]<-c(rmultinom(1,numb.produced,temp.e[,12]))}
+        # else{temp.m[,j]<-c(rmultinom(1,numb.produced,temp.e[,age_bins]))}
       } else{
-        if(j == 12){
+        if(j == age_bins){
           #Mortality calculation with no stochasticity
           #temp.m[,,j]<- (temp.e[,,j-1] * JM) +  (temp.e[,,j] * AM)
           #Stochastically adds mortality across haplotypes based on previous months hap freq
@@ -192,7 +197,7 @@ plotting.model<-function(model.array,start.females,type,bootstrap_culling=0.95,m
   }
   
   if(type!='overall'){
-    plot.data<-data.frame(month=rep(c(1,seq(6,months,by=6)),dim(model.array)[2]*dim(model.array)[3]*dim(model.array)[4]),
+    plot.data<-data.frame(month=rep(c(1,seq(2,months,by=1)),dim(model.array)[2]*dim(model.array)[3]*dim(model.array)[4]),
                           haplotype.frequency=matrix(model.array),
                           haplotype=as.factor(rep(rep(rep(1:dim(model.array)[2],each=dim(model.array)[1]),dim(model.array)[3]),dim(model.array)[4])),
                           females=rep(as.factor(rep(start.females,each=dim(model.array)[2]*dim(model.array)[1])),dim(model.array)[4]),
