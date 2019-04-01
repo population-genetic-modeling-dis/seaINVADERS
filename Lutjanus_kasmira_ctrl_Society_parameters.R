@@ -21,8 +21,8 @@ destination.hap<-c(8,0,2,0,2,13,0,2,2,1,5,5,2,1,8,0,1,1,0,16,0,6,1,0,1,0,2,1,4,3
 
 ## Demographic Parameters
 BIN             <- 12     # Number of different age-classes
-JUVI.MORT       <- 1-0.165  # Juvenile mortality 
-ADULT.MORT      <- 1-0.052  # Adult mortality 
+JUVI.MORT       <- 1-0.395  # Juvenile mortality 
+ADULT.MORT      <- 1-0.0083  # Adult mortality 
 ADULT.FRAC      <- 1-0.96   # Fraction of starting population that are adults* 
 # * Based on the empirical estimates of Belize 2014 lionfish sample
 #   on the forereef.
@@ -30,13 +30,13 @@ ADULT.FRAC      <- 1-0.96   # Fraction of starting population that are adults*
 ## Calculating Recruit per Individual
 # This section takes egg and larval demographic parameters and calculates
 # the monthly number of recruits per individual adult lionfish.
-ADULT.FEM.FRAC  <- 0.49    # Proportion of adults that are females
-ADULT.FEM.MAT   <- 0.79    # Proportion of females that are mature
-FE              <- 194577  # Fecundity - number of eggs per female per month
-ME              <- 0.31    # Egg mortality (days)
-DE              <- 3       # Egg duration (days)
-ML              <- 0.35    # Larval mortality (days)
-DL              <- 27      # Larval duration (days)
+ADULT.FEM.FRAC  <- 0.54128    # Proportion of adults that are females
+ADULT.FEM.MAT   <- 0.6004    # Proportion of females that are mature
+FE              <- 11986.11  # Fecundity - number of eggs per female per month
+ME              <- 15.83   # Egg mortality (days)
+DE              <- .778       # Egg duration (days)
+ML              <- 0.34884    # Larval mortality (days)
+DL              <- 20.4      # Larval duration (days)
 
 
 ## Vectors and List for above ***** DO NOT CHANGE ****
