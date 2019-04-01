@@ -12,8 +12,8 @@ NUM_BOOTSTRAPS <- 10 #Number of simulations to run with each source
 ##Native Range Demographics
 #from arlequin
 
-source.theta<-7.63797
-source.theta.sd<-2.65535
+source.theta<-8.60714
+source.theta.sd<-4.48981
 
 ## Haplotype information
 source.hap<-c(4,1,1,1,1,6,2,0,0,0,0,0,0,0,4,3,0,0,1,3,1,1,0,1,0,2,0,0,1,0,1,0,0,1,1,1,1,1,1)
