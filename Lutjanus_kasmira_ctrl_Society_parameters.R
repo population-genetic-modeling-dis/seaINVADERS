@@ -16,8 +16,8 @@ source.theta<-7.63797
 source.theta.sd<-2.65535
 
 ## Haplotype information
-source.hap<-c(194,172,24,19,14,19,15,1,1)
-destination.hap<-c(159,405,3,34,0,0,0,0,0)
+source.hap<-c(4,1,1,1,1,6,2,0,0,0,0,0,0,0,4,3,0,0,1,3,1,1,0,1,0,2,0,0,1,0,1,0,0,1,1,1,1,1,1)
+destination.hap<-c(8,0,2,0,2,13,0,2,2,1,5,5,2,1,8,0,1,1,0,16,0,6,1,0,1,0,2,1,4,3,0,1,1,0,0,1,0,0,0)
 
 ## Demographic Parameters
 BIN             <- 12     # Number of different age-classes
