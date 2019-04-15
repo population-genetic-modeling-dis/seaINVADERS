@@ -15,4 +15,9 @@ module load R/openmpi/intel/3.2.2
 
 #To Run use command: sbatch Cope_ERGM_Bash.shn
 
-mpirun -np 1 R CMD BATCH Marqmodel4_9.R $1
+#mpirun -np 1 R CMD BATCH Marqmodel4_9.R $1
+RAND=$(( ( RANDOM % 1000000 )  + 1 ))
+NEWDIR=output_${1}_$RAND
+mkdir $NEWDIR
+
+mpirun -np 1 Rscript --verbose Marqmodel4_9.R $1 $NEWDIR > $NEWDIR/model.Rout

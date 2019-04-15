@@ -5,7 +5,9 @@
 rm(list=ls())
 
 #read in command line arguments
-parameters <- commandArgs()
+arguments <- commandArgs()
+parameters <- arguments[1]
+newDir <- arguments[2]
 
 library(parallel)
 library(abind)
@@ -111,13 +113,13 @@ for(v in proportion.successful.recruits){
     print('Summary finished')
     print(paste("f",format(object.size(f),units="Mb"),sep=' = '))
     
-    save.image(paste('./',names(sources)[S],'-rpr-',v,'_source.RData',sep=''))
+    save.image(paste('./', newDir,'/', names(sources)[S],'-rpr-',v,'_source.RData',sep=''))
     print('Model Image Saved')
     #### Make Model Overview Plots ####
     #Problems with this resulting in this error: 
     #/home/apps/R/gcc/3.3.2/lib64/R/bin/BATCH: line 60: 94950 Killed                  ${R_HOME}/bin/R -f ${in} ${opts} ${R_BATCH_OPTIONS} > ${out} 2>&1
     
-    # pdf(paste('./',names(sources)[S],'-plots.pdf',sep=''),width=100,height=100,onefile = T)
+    # pdf(paste('./', newDir,'/', names(sources)[S],'-plots.pdf',sep=''),width=100,height=100,onefile = T)
     # 
     # total.plot<-plotting.model(s,initial.females,type='total',mem.redux=T)
     # print(total.plot)
@@ -135,7 +137,7 @@ for(v in proportion.successful.recruits){
     
     #### Statistical Analysis ####
     
-    pdf(paste('./',names(sources)[S],'-rpr-',v,'-statistical_plots.pdf',sep=''),onefile = T)
+    pdf(paste('./', newDir,'/', names(sources)[S],'-rpr-',v,'-statistical_plots.pdf',sep=''),onefile = T)
     
     for(D in 1:length(destinations)){
       stats.output<-model.statistics(destination.haplotypes=destinations[[D]],model.freq=f)
@@ -148,7 +150,7 @@ for(v in proportion.successful.recruits){
       print(statistical.plots[[4]])
       print(statistical.plots[[5]])
       
-      write.csv(statistical.plots[[6]],paste('./',names(sources)[S],'-to-',names(destinations)[D],'-rpr-',v,'-plot.data.csv',sep=''))
+      write.csv(statistical.plots[[6]],paste('./', newDir,'/', names(sources)[S],'-to-',names(destinations)[D],'-rpr-',v,'-plot.data.csv',sep=''))
     }
     
     dev.off()
