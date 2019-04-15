@@ -38,8 +38,8 @@ run.Model <- function (FEMALE.START,hap.num.start.freq,RUN.MONTH,Demo.param,RPR,
     #s.f.sfreq<-s.f/hap.info.vec[1]
   } else if (length(hap.num.start.freq)==1){
     s.f.sfreq<-rinfall(hap.num.start.freq,FEMALE.START)
-    s.f.sfreq<-c(s.f.sfreq,rep(0,100-length(s.f.sfreq)))
-    hap.num.init<-100
+    s.f.sfreq<-c(s.f.sfreq,rep(0,150-length(s.f.sfreq)))
+    hap.num.init<-150
   }
  
 
