@@ -30,6 +30,13 @@ if(exists("source.hap")){haplotype.sources<-list(source.name=source.hap)}
 #all.thetas<-indonesia.theta+(2:-2)*indonesia.theta.sd
 #CEB
 all.thetas<-source.theta+(2:-2)*source.theta.sd
+
+for(i in all.thetas){
+	if(i < 0.5){
+		all.thetas[which(all.thetas == i)] <- 0.5
+	}
+}
+
 #native.dist<-as.list(all.thetas)
 source.dist<-as.list(all.thetas)
 #names(native.dist)<-paste('Sim.native','theta',all.thetas,sep='.')
