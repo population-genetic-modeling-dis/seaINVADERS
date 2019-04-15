@@ -5,7 +5,7 @@
 rm(list=ls())
 
 #read in command line arguments
-arguments <- commandArgs()
+arguments <- commandArgs(trailingOnly=TRUE)
 parameters <- arguments[1]
 newDir <- arguments[2]
 
