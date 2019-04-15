@@ -3,6 +3,10 @@
 ## Last Mod: 2019-18-02
 
 rm(list=ls())
+
+#read in command line arguments
+parameters <- commandArgs()
+
 library(parallel)
 library(abind)
 #library(Rmpi)
@@ -10,7 +14,7 @@ library(snow)
 library(ggplot2)
 #### Source Functions ####
 source("model_functions.R")
-source("Lutjanus_kasmira_ctrl_Marquesas_parameters.R")
+source(parameters)
 
 
 #### User Inputs for lionfish_number.R ####

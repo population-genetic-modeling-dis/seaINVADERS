@@ -142,6 +142,7 @@ model.func <- function(model.output,s.f.sfreq,M,REC.IND,AM,JM,fem.perc,hap.num,v
             #t2<-sample(1:hap.num,size=n.size(temp.e[l,,j],AM),replace=TRUE,prob = hap.freq.e2)
             
             numb.produced<-n.size(temp.e[,j],AM)
+			if(numb.produced > 1000000){numb.produced <- 1000000}
             temp.m[,j]<-temp.m[,j]+c(rmultinom(1,numb.produced,temp.e[,j]))
           }
           # if(sum(hap.freq.e) == 1 || sum(hap.freq.e2) == 1){
