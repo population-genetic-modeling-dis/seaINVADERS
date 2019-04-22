@@ -26,6 +26,7 @@ initial.females <- seq(min_f_number,max_f_number,by=f_increment) # vector of num
 proportion.successful.recruits<-seq(min_prop,max_prop,length.out=prop_increment)
 
 
+
 #### Setup Data ####
 #region.sources<-list(Atlantic=atlantic.hap,Caribbean=carib.hap,GoMx=gomx.hap)
 #CEB HapModel
@@ -88,7 +89,7 @@ for(v in proportion.successful.recruits){
   for(S in 1:length(sources)){
     clusterExport(cl=cluster, list('S'),envir=environment())
     
-    s<-parallel::parSapply(cl=cluster, initial.females, function(x) replicate(BS, run.Model(FEMALE.START=x,hap.num.start.freq=sources[[S]],RUN.MONTH,Demo.param,RPR,F,variable.RPR=v), 
+    s<-parallel::parSapply(cl=cluster, initial.females, function(x) replicate(BS, run.Model(FEMALE.START=x,hap.num.start.freq=sources[[S]],RUN.MONTH,Demo.param,RPR,F,variable.RPR=v,THIN=thin), 
                                                                               simplify = "array"), simplify = 'array')
     
 # 	s<-sapply(initial.females, function(x) replicate(BS, run.Model(FEMALE.START=x,hap.num.start.freq=sources[[S]],RUN.MONTH,Demo.param,RPR,F,variable.RPR=v), 
