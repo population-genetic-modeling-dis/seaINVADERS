@@ -25,8 +25,8 @@ f_increment <- 1000 #ex. If f_increment=5, then model will count (5,10,15,20...e
 ##Native Range Demographics
 #from arlequin
 
-source.theta<-9.71020
-source.theta.sd<-5.02022
+source.theta<-14.95801
+source.theta.sd<-4.45541
 
 ## Haplotype information
 source.hap<-c(3,1,0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,1,1,1,0,0,0,0,0,1,0,0,0,0,1,1,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,1,1,1,0,0,0,2,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,0,1,0,0,1,1,0,1,1,0,1)
@@ -51,7 +51,7 @@ ADULT.FEM.FRAC  <- 0.54128    # Proportion of adults that are females
 ADULT.FEM.MAT   <- 0.6004    # Proportion of females that are mature
 FE              <- 11986.11  # Fecundity - number of eggs per female per month
 ME              <- 15.83    # Egg mortality (days)
-DE              <- .778       # Egg duration (days)
+DE              <- 0.778       # Egg duration (days)
 ML              <- 0.34884    # Larval mortality (days)
 DL              <- 20.4      # Larval duration (days)
 
@@ -64,16 +64,16 @@ ARM             <- 2.3       #Age of reproductive maturity (years)
 ## Standard deviations of each parameter (not in Jason's model)
 # Most recently updated by Gray on 4_8_2019
 #SR.sd              <- ?          #Spawning rate standard deviation
-FE.sd              <- 6279.28    #Fecundinty standard deviation
-ME.sd              <- 2.5        #Egg mortality standard deviation
-DE.sd              <- 0.339      #Egg duration standard deviation
-ML.sd              <- 0.03453    #Larval mortality standard deviation
-DL.sd              <- 0.5        #Larval duration standard deviation
+#FE.sd              <- 6279.28    #Fecundinty standard deviation
+#ME.sd              <- 2.5        #Egg mortality standard deviation
+#DE.sd              <- 0.339      #Egg duration standard deviation
+#ML.sd              <- 0.03453    #Larval mortality standard deviation
+#DL.sd              <- 0.5        #Larval duration standard deviation
 #JUVI.MORT.sd       <- ?          #Juvenile mortality standard deviation
 #JD.sd              <- ?          #Juvenile duration standard deviation
 #ARM.sd             <- ?          #Age of reproductive maturity standard deviation
 #ADULT.MORT.sd      <- ?          #Adult mortality standard deviation
-ADULT.FRAC.sd      <- 0          #Proportion of starting population that are adults standard deviation
+#ADULT.FRAC.sd      <- 0          #Proportion of starting population that are adults standard deviation
 #ADULT.FEM.MAT.sd   <- ?          #Proportion of females that are mature standard deviation
 #ADULT.FEM.FRAC.sd  <- ?          #Fraction of population that are females
 
