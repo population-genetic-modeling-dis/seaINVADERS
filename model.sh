@@ -17,5 +17,6 @@ module load R/openmpi/intel/3.2.2
 TIME=$(date +%s%N | cut -b1-13)
 NEWDIR=output_${1%.*}_$TIME
 mkdir $NEWDIR
+cp $1 $NEWDIR/$1
 
 Rscript --verbose model.R $1 $NEWDIR > $NEWDIR/model.Rout
