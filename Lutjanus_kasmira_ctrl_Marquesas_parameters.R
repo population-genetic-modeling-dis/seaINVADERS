@@ -7,7 +7,7 @@ MODEL_DURATION <- 56 #4	#Number of years to run the model (haplotype data from 2
 #### Demographic Parameters for Model ####
 
 np <- NP-1 #Number of processors to use
-NUM_BOOTSTRAPS <- 1000 #Number of simulations to run with each source
+NUM_BOOTSTRAPS <- 100 #Number of simulations to run with each source
 thin <- FALSE # Save only first and last month of simulated pops?
 source.name <- "Marq"
 destination.name <- "Hawaii"
@@ -20,7 +20,7 @@ prop_increment <- 2 #ex. If prop_increment=4, then the model will count (.25,.5,
 #initial.females variables
 min_f_number <- 25 #This is the minimum # of females.
 max_f_number <- 3025 #This is the maximum # of females.
-f_increment <- 1000 #ex. If f_increment=5, then model will count (5,10,15,20...etc)
+f_increment <- 250 #ex. If f_increment=5, then model will count (5,10,15,20...etc)
 
 ##Native Range Demographics
 #from arlequin

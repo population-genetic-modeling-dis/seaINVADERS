@@ -7,7 +7,7 @@ MODEL_DURATION <- 56	#Number of years to run the model
 #### Demographic Parameters for Model ####
 
 np <- NP-1 #Number of processors to use
-NUM_BOOTSTRAPS <- 10000 #Number of simulations to run with each source
+NUM_BOOTSTRAPS <- 1000 #Number of simulations to run with each source
 
 ##Native Range Demographics
 #from arlequin
