@@ -181,8 +181,8 @@ n.size<-function(x,m){
   }
   else{
   #Mortality rate of a given mortality rate = m
-    #y<-round(sum(x)*m) 
-	y<-rbinom(1, sum(x), 1-m)
+    y<-round(sum(x)*m) 
+	#y<-rbinom(1, sum(x), m)
   }
   return(y)
 }
