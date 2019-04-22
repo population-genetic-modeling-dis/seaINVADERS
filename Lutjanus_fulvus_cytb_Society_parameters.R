@@ -1,13 +1,13 @@
 #### Parameters for space_invaders.R model #####
 NP <- 20  			#Number of processors to use
 MONTHS <- 12   		#Number of "months" or portions to divide a year into
-MODEL_DURATION <- 2	#Number of years to run the model
+MODEL_DURATION <- 56	#Number of years to run the model
 
 
 #### Demographic Parameters for Model ####
 
 np <- NP-1 #Number of processors to use
-NUM_BOOTSTRAPS <- 10 #Number of simulations to run with each source
+NUM_BOOTSTRAPS <- 10000 #Number of simulations to run with each source
 
 ##Native Range Demographics
 #from arlequin
