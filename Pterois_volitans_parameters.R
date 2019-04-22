@@ -15,11 +15,11 @@ destination.name <- "GOM"
 #proportion.successful.recruits variables (All "prop" variables must be greater than 0, and less than or equal to 1)
 min_prop <- .25 #This is the minimum proportion of successful recruits
 max_prop <- 1 #This is the maximum proportion of successful
-prop_increment <- 2 #ex. If prop_increment=4, then the model will count (.25,.5,.75,1) 
+prop_increment <- 4 #ex. If prop_increment=4, then the model will count (.25,.5,.75,1) 
 
 #initial.females variables
-min_f_number <- 10 #This is the minimum # of females.
-max_f_number <- 100 #This is the maximum # of females.
+min_f_number <- 5 #This is the minimum # of females.
+max_f_number <- 1000 #This is the maximum # of females.
 f_increment <- 5 #ex. If f_increment=5, then model will count (5, 10, 15, 20...etc)
 
 ##Native Range Demographics
