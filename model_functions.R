@@ -119,7 +119,8 @@ model.func <- function(model.output,s.f.sfreq,M,REC.IND,AM,JM,fem.perc,hap.num,v
         #numb.produced<-n.size(temp.e[,age_bins],var.temp)
 		
 		#CEB: To have non-reproductive seasons (i.e. Months 5,6,7) Skip the next 2 lines when M==5:7
-        numb.produced<-n.size(temp.e[,age_bins],REC.IND)
+        #numb.produced<-n.size(temp.e[,age_bins],REC.IND)
+		numb.produced<-n.size(temp.e[,age_bins],var.temp)
         temp.m[,j]<-c(rmultinom(1,numb.produced,temp.e[,age_bins]))
         # 
         # if(sum(hap.freq.e0)==0){temp.m[,j]<-0;print('FLAG')}
@@ -174,10 +175,14 @@ model.func <- function(model.output,s.f.sfreq,M,REC.IND,AM,JM,fem.perc,hap.num,v
 
 n.size<-function(x,m){
   if(is.list(m)){
+  #Creation of new fish - m[[1]] = percent females, m[[2]] = recruits per individual
     y<-round((sum(x)*m[[1]])*(m[[2]]))
+
   }
   else{
-    y<-round(sum(x)*m) 
+  #Mortality rate of a given mortality rate = m
+    #y<-round(sum(x)*m) 
+	y<-rbinom(1, sum(x), 1-m)
   }
   return(y)
 }
