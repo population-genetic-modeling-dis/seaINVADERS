@@ -77,7 +77,7 @@ for.workers<-ls()
 
 
 #### Build MPI Cluster ####
-cluster <- makeCluster(np,type="SOCK",outfile = "newDir/debug.txt")
+cluster <- makeCluster(np,type="SOCK",outfile = paste(newDir,"/debug.txt",sep=""))
 clusterExport(cl=cluster, as.list(for.workers),
               envir=environment())
 clusterEvalQ(cluster, {library(abind)})
