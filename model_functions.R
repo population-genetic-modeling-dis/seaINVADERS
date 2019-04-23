@@ -16,8 +16,12 @@ run.Model <- function (FEMALE.START,hap.num.start.freq,RUN.MONTH,Demo.param,RPR,
   ## New Calculation
   #   This constant represents the fraction of surviving larvae (recruits) per adult, based on the egg and 
   #   larval mortalities, the duration of both stages, and the expected fecundity of an individual female lionfish.  
-  
-  REC.PER.IND <- variable.RPR*RPR[1]*RPR[2]*RPR[3]*exp(-(RPR[4]*RPR[5]+RPR[6]*RPR[7])) # Recruits per individual
+  if(RPR[8] > 0){
+	FECUNDITY <- rnorm(1,RPR[3],RPR[8])
+  } else { 
+	FECUNDITY <- RPR[3]
+  }
+  REC.PER.IND <- variable.RPR*RPR[1]*RPR[2]*FECUNDITY*exp(-(RPR[4]*RPR[5]+RPR[6]*RPR[7])) # Recruits per individual
   
   #either read in hap freqs from parameters or calculate hap freqs from theta
   if(length(hap.num.start.freq)>1){
@@ -90,7 +94,7 @@ run.Model <- function (FEMALE.START,hap.num.start.freq,RUN.MONTH,Demo.param,RPR,
 # and models population recovery for month M given variable distance (removal) and 
 # self-recruitment rates.
 
-model.func <- function(model.output,s.f.sfreq,M,REC.IND,AM,JM,fem.perc,hap.num,verbose){
+model.func <- function(model.output,s.f.sfreq,M,REC.IND,AM,JM,fem.perc,hap.num,verbose,K){
   temp.m <- model.output[,,M]
   # Initializes the matrix at month one with user defined starting female lionfish distributed
   # randomly across haplotype according to defined hap freqs.
@@ -109,7 +113,7 @@ model.func <- function(model.output,s.f.sfreq,M,REC.IND,AM,JM,fem.perc,hap.num,v
       if(j == 1){
          #Stochastically adds mortality across haplotypes based on previous months hap freq
         
-		logistic_REC.IND <- REC.IND - (((REC.IND - 1)/1000000) * sum(temp.e[,1:age_bins]))
+		logistic_REC.IND <- REC.IND - (((REC.IND - 1)/K) * sum(temp.e[,age_bins]))
 		var.temp<-list(fem.perc,logistic_REC.IND)
 		
 		#CEB: To have non-reproductive seasons (i.e. Months 5,6,7) Skip the next 2 lines when M==5:7

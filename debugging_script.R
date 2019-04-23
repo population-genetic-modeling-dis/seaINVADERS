@@ -1,7 +1,9 @@
+stopCluster(cluster)
 rm(list=ls())
 setwd("C:/Users/cbird/Documents/GCL/scripts/space_invaders")
 
-parameterfile <- "Pterois_volitans_ctrl_parameters.R"
+#parameterfile <- "Pterois_volitans_ctrl_parameters.R"
+parameterfile <- "Lutjanus_kasmira_ctrl_Society_parameters.R"
 outputdir <- "outdir"
 
 #tanslate input into variable used by model
@@ -25,8 +27,12 @@ source(parameters)
 #### User Inputs from Parameters File ####
 BS <- NUM_BOOTSTRAPS
 RUN.MONTH <- MONTHS*MODEL_DURATION     # Number of 12 months * number of years to run model
-initial.females <- seq(min_f_number,max_f_number,by=f_increment) # vector of number of starting female lionfish
-proportion.successful.recruits<-seq(min_prop,max_prop,length.out=prop_increment)
+initial.females <- seq(min_f_number,max_f_number,by=f_bins) # vector of number of starting female lionfish
+proportion.successful.recruits<-seq(min_prop,max_prop,length.out=prop_bins)
+np <- NP-1 #Number of processors to use
+Demo.param <- c(1-ADULT.MORT,1-JUVI.MORT,1-ADULT.FRAC,BIN)   #mortalities
+if(!exists("FE.sd")){FE.sd <- 0}
+RPR <- c(ADULT.FEM.FRAC,ADULT.FEM.MAT,FE,ME,DE,ML,DL,FE.sd,K)   #Demographic parameters used to calculate recruit per individual in monthly time steps
 
 if(exists("source.hap")){haplotype.sources<-list(source.name=source.hap)}
 
@@ -69,7 +75,7 @@ clusterEvalQ(cluster, {library(abind)})
 
 #### Run the model ####
 #CEB bypassing for loop, setting prop succ rec to 1
-v=0.1
+v=proportion.successful.recruits[1]
 clusterExport(cl=cluster, list('v'),envir=environment())
 #CEB bypassing for loop, setting source pop to 1
 S=2
@@ -90,7 +96,13 @@ THIN <- thin
 
 #   This constant represents the fraction of surviving larvae (recruits) per adult lionfish, based on the egg and 
 #   larval mortalities, the duration of both stages, and the expected fecundity of an individual female lionfish.  
-REC.PER.IND <- variable.RPR*RPR[1]*RPR[2]*RPR[3]*exp(-(RPR[4]*RPR[5]+RPR[6]*RPR[7])) # Recruits per individual
+if(RPR[8] > 0){
+  FECUNDITY <- rnorm(1,RPR[3],RPR[8])
+} else { 
+  FECUNDITY <- RPR[3]
+}
+
+REC.PER.IND <- variable.RPR*RPR[1]*RPR[2]*FECUNDITY*exp(-(RPR[4]*RPR[5]+RPR[6]*RPR[7])) # Recruits per individual
 
 if(length(hap.num.start.freq)>1){
   hap.num.init<-length(hap.num.start.freq)
@@ -113,7 +125,7 @@ demo.summary <- array(dim=c(Demo.param[4],RUN.MONTH))
 
 for( k in 1:RUN.MONTH) {
   #full model with individuals output
-  model.output[,,k] <- model.func(model.output,s.f.sfreq,k,REC.PER.IND,Demo.param[1],Demo.param[2],RPR[1],hap.num.init,verbose)
+  model.output[,,k] <- model.func(model.output,s.f.sfreq,k,REC.PER.IND,Demo.param[1],Demo.param[2],RPR[1],hap.num.init,verbose,RPR[9])
   #summary of all age classes by month
   model.summary[,k] <- apply(model.output[,,k],1,function(x) sum(x))
   demo.summary[,k] <- apply(model.output[,,k],2,function(x) sum(x))
