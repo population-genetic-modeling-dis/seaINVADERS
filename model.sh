@@ -15,7 +15,7 @@ module load R/openmpi/intel/3.2.2
 #To Run use command: sbatch model.sh NameOfParameters.R
 
 TIME=$(date +%s%N | cut -b1-13)
-NEWDIR=output_${1%.*}_$TIME
+OUTDIR=output_${1%.*}_$TIME
 mkdir $OUTDIR
 cp $1 $OUTDIR/$1
 

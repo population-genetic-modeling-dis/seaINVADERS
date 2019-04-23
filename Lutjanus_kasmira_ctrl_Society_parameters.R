@@ -17,8 +17,8 @@ destination.hap  <-c(8,0,2,0,2,13,0,2,2,1,5,5,2,1,8,0,1,1,0,16,0,6,1,0,1,0,2,1,4
 MONTHS           <- 12   	#Number of "months" or portions to divide a year into (age repro mat)
 thin             <- FALSE	# Save only first and last month of simulated pops?
 
-min_prop         <- 8		#This is the minimum proportion of successful recruits relative to that of the demographic parameters in the literature
-max_prop         <- 10		#This is the maximum proportion of successful recruits relative to that of the demographic parameters in the literature
+min_prop         <- 10		#This is the minimum proportion of successful recruits relative to that of the demographic parameters in the literature
+max_prop         <- 12		#This is the maximum proportion of successful recruits relative to that of the demographic parameters in the literature
 prop_bins        <- 2 		#ex. If prop_increment=4, then 4 different props will be run, ex: (.25,.5,.75,1)
 
 min_f_number     <- 500 	#This is the minimum # of colonizing females.
