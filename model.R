@@ -106,7 +106,7 @@ for(v in proportion.successful.recruits){
     #Problems with this resulting in this error: 
     #/home/apps/R/gcc/3.3.2/lib64/R/bin/BATCH: line 60: 94950 Killed                  ${R_HOME}/bin/R -f ${in} ${opts} ${R_BATCH_OPTIONS} > ${out} 2>&1
     
-    # pdf(paste('./', outDir,'/', names(sources)[S],'-plots.pdf',sep=''),width=100,height=100,onefile = T)
+    # pdf(paste('./', outDir,'/', names(sources)[S],'-rpr-',v,'-plots.pdf',sep=''),width=100,height=100,onefile = T)
     # 
     # total.plot<-plotting.model(s,initial.females,type='total',mem.redux=T)
     # print(total.plot)
@@ -121,7 +121,22 @@ for(v in proportion.successful.recruits){
     # gc()
     # 
     # print('Finished simulation plots')
-    
+
+	
+	
+	#### Demographic Plots ####
+	pdf(paste('./', outDir,'/', names(sources)[S],'-rpr-',v,'-demographic_plots.pdf',sep=''),width=100,height=100,onefile = T)
+		#loop through number of starting females
+		for(numfem in initial.females){
+			tmp_s <- s[,,which(initial.females == numfem),]
+			#this takes mean pop size across all bootstrap at each time point
+			plot(apply(tmp_s[,,], 1, sum)/dim(tmp_s)[3], main=paste("Colonists =", numfem, sep=" ") )
+			#print(demoplot)
+		}
+    dev.off()
+	
+	
+	
     #### Statistical Analysis ####
     
     pdf(paste('./', outDir,'/', names(sources)[S],'-rpr-',v,'-statistical_plots.pdf',sep=''),onefile = T)

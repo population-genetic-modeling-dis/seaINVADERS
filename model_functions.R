@@ -238,6 +238,7 @@ plotting.model<-function(model.array,start.females,type,bootstrap_culling=0.95,m
   p1
 }
 
+
 #### Statistics ####
 #destination.haplotypes=atlantic.hap;source.haplotypes = hap.num.start.freq;model.freq=full.model.freq
 model.statistics<-function(destination.haplotypes,model.freq){
@@ -254,7 +255,7 @@ model.statistics<-function(destination.haplotypes,model.freq){
     destination.haplotypes<-c(destination.haplotypes,rep(0,abs(dim(model.freq)[2]-length(destination.haplotypes))))
   }
   
-  #Bootstrap for observed
+  #Bootstrap for observed    #CEB if sampling from dest is not great, then use estimate of theta a ewan's sampling to do this
   boot.dest.hap<-rmultinom(1000,sum(destination.haplotypes),destination.haplotypes)
   
   #Richness

@@ -1,6 +1,6 @@
 #### Parameters for space_invaders.R model #####
-NP               <- 40		#Number of processors to use
-MODEL_DURATION   <- 10		#Number of years to run the model
+NP               <- 7		#Number of processors to use
+MODEL_DURATION   <- 56		#Number of years to run the model
 NUM_BOOTSTRAPS   <- 100		#Number of simulations to run with each source
 
 #### Population Genetic Parameters ####
@@ -23,7 +23,7 @@ prop_bins        <- 4 		#ex. If prop_increment=4, then 4 different props will be
 
 min_f_number     <- 500 	#This is the minimum # of colonizing females.
 max_f_number     <- 6025 	#This is the maximum # of colonizing females.
-f_bins           <- 39 		#ex. If f_increment=3, then three different numbers of female colonists will be run (min, min+(max-min)/2,max)
+f_bins           <- 6 		#ex. If f_increment=3, then three different numbers of female colonists will be run (min, min+(max-min)/2,max)
 
 BIN             <- 12     	# Number of different age-classes
 JUVI.MORT       <- 0.395  	# Juvenile mortality ***too high?

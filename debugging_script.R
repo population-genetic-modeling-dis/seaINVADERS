@@ -78,7 +78,7 @@ clusterEvalQ(cluster, {library(abind)})
 v=proportion.successful.recruits[1]
 clusterExport(cl=cluster, list('v'),envir=environment())
 #CEB bypassing for loop, setting source pop to 1
-S=2
+S=1
 clusterExport(cl=cluster, list('S'),envir=environment())
 
 #_____________________________________________________________
