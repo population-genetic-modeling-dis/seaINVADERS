@@ -1,7 +1,7 @@
 #### Parameters for space_invaders.R model #####
-NP               <- 7		#Number of processors to use
-MODEL_DURATION   <- 56		#Number of years to run the model
-NUM_BOOTSTRAPS   <- 10		#Number of simulations to run with each source
+NP               <- 40		#Number of processors to use
+MODEL_DURATION   <- 10		#Number of years to run the model
+NUM_BOOTSTRAPS   <- 100		#Number of simulations to run with each source
 
 #### Population Genetic Parameters ####
 source.name      <- "Society"
@@ -17,13 +17,13 @@ destination.hap  <-c(8,0,2,0,2,13,0,2,2,1,5,5,2,1,8,0,1,1,0,16,0,6,1,0,1,0,2,1,4
 MONTHS           <- 12   	#Number of "months" or portions to divide a year into (age repro mat)
 thin             <- FALSE	# Save only first and last month of simulated pops?
 
-min_prop         <- 10		#This is the minimum proportion of successful recruits relative to that of the demographic parameters in the literature
+min_prop         <- 1		#This is the minimum proportion of successful recruits relative to that of the demographic parameters in the literature
 max_prop         <- 12		#This is the maximum proportion of successful recruits relative to that of the demographic parameters in the literature
-prop_bins        <- 2 		#ex. If prop_increment=4, then 4 different props will be run, ex: (.25,.5,.75,1)
+prop_bins        <- 4 		#ex. If prop_increment=4, then 4 different props will be run, ex: (.25,.5,.75,1)
 
 min_f_number     <- 500 	#This is the minimum # of colonizing females.
-max_f_number     <- 3025 	#This is the maximum # of colonizing females.
-f_bins           <- 3 		#ex. If f_increment=3, then three different numbers of female colonists will be run (min, min+(max-min)/2,max)
+max_f_number     <- 6025 	#This is the maximum # of colonizing females.
+f_bins           <- 39 		#ex. If f_increment=3, then three different numbers of female colonists will be run (min, min+(max-min)/2,max)
 
 BIN             <- 12     	# Number of different age-classes
 JUVI.MORT       <- 0.395  	# Juvenile mortality ***too high?

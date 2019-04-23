@@ -54,7 +54,7 @@ run.Model <- function (FEMALE.START,hap.num.start.freq,RUN.MONTH,Demo.param,RPR,
 
   for( k in 1:RUN.MONTH) {
     #full model with individuals output
-    model.output[,,k] <- model.func(model.output,s.f.sfreq,k,REC.PER.IND,Demo.param[1],Demo.param[2],RPR[1],hap.num.init,verbose)
+    model.output[,,k] <- model.func(model.output,s.f.sfreq,k,REC.PER.IND,Demo.param[1],Demo.param[2],RPR[1],hap.num.init,verbose, RPR[9])
     #summary of all age classes by month
     #model.summary[,k] <- apply(model.output[,,k],1,function(x) sum(x))
     #adjusting individual summary to a proportion
