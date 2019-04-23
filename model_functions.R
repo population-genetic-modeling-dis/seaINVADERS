@@ -14,20 +14,19 @@
 run.Model <- function (FEMALE.START,hap.num.start.freq,RUN.MONTH,Demo.param,RPR,verbose,variable.RPR=1,THIN=T) {
   
   ## New Calculation
-  #   This constant represents the fraction of surviving larvae (recruits) per adult lionfish, based on the egg and 
+  #   This constant represents the fraction of surviving larvae (recruits) per adult, based on the egg and 
   #   larval mortalities, the duration of both stages, and the expected fecundity of an individual female lionfish.  
   
-  #REC.PER.IND      <- RPR[1]*RPR[2]*RPR[3]*((1-RPR[4])^RPR[5])*((1-RPR[6])^RPR[7])
+  REC.PER.IND <- variable.RPR*RPR[1]*RPR[2]*RPR[3]*exp(-(RPR[4]*RPR[5]+RPR[6]*RPR[7])) # Recruits per individual
   
-  REC.PER.IND      <- variable.RPR*RPR[1]*RPR[2]*RPR[3]*exp(-(RPR[4]*RPR[5]+RPR[6]*RPR[7])) # Recruits per individual
-  
+  #either read in hap freqs from parameters or calculate hap freqs from theta
   if(length(hap.num.start.freq)>1){
     hap.num.init<-length(hap.num.start.freq)
     if(sum(hap.num.start.freq!=1)){hap.num.start.freq<-hap.num.start.freq/sum(hap.num.start.freq)}
     
     #### Model Initializations ####
     
-    ## Randomize initial female lionfish haplotype
+    ## Randomize initial female haplotype
     
     #s.f<-sample(1:hap.info.vec[2],size = hap.info.vec[1],replace = TRUE, prob= hap.num.start.freq)
     #s.f.sfreq<-table(factor(s.f, levels=1:hap.info.vec[2]))
@@ -38,10 +37,9 @@ run.Model <- function (FEMALE.START,hap.num.start.freq,RUN.MONTH,Demo.param,RPR,
     #s.f.sfreq<-s.f/hap.info.vec[1]
   } else if (length(hap.num.start.freq)==1){
     s.f.sfreq<-rinfall(hap.num.start.freq,FEMALE.START)
-    s.f.sfreq<-c(s.f.sfreq,rep(0,150-length(s.f.sfreq)))
-    hap.num.init<-150
+    s.f.sfreq<-c(s.f.sfreq,rep(0,300-length(s.f.sfreq)))
+    hap.num.init<-300
   }
- 
 
   
   # Intialize the 4-d array where model output will be stored
@@ -52,9 +50,9 @@ run.Model <- function (FEMALE.START,hap.num.start.freq,RUN.MONTH,Demo.param,RPR,
 
   for( k in 1:RUN.MONTH) {
     #full model with individuals output
-    model.output[,,k]     <- model.func(model.output,s.f.sfreq,k,REC.PER.IND,Demo.param[1],Demo.param[2],RPR[1],hap.num.init,verbose)
+    model.output[,,k] <- model.func(model.output,s.f.sfreq,k,REC.PER.IND,Demo.param[1],Demo.param[2],RPR[1],hap.num.init,verbose)
     #summary of all age classes by month
-    #model.summary[,k]     <- apply(model.output[,,k],1,function(x) sum(x))
+    #model.summary[,k] <- apply(model.output[,,k],1,function(x) sum(x))
     #adjusting individual summary to a proportion
     #model.summary.adj[,k] <- model.summary[,k]/sum(model.summary[,k])
     if(verbose){
@@ -109,51 +107,38 @@ model.func <- function(model.output,s.f.sfreq,M,REC.IND,AM,JM,fem.perc,hap.num,v
     temp.e <- model.output[,,M-1]
     for( j in 1:age_bins) { #For each age bin
       if(j == 1){
-        #Mortality calculation with no stochasticity
-        #temp.m[,,j]<-((temp.e[,,age_bins]/fem.perc)*(SR.vec*REC.IND))
-        #Stochastically adds mortality across haplotypes based on previous months hap freq
-        #print(temp.e[,age_bins])
-        #hap.freq.e0<-freq.convert(temp.e[,age_bins])
-        var.temp<-list(fem.perc,REC.IND)
-        #t<-sample(1:hap.num,size=n.size(temp.e[l,,age_bins],var.temp),replace=TRUE,prob = hap.freq.e0)
-        #numb.produced<-n.size(temp.e[,age_bins],var.temp)
+         #Stochastically adds mortality across haplotypes based on previous months hap freq
+        
+		logistic_REC.IND <- REC.IND - (((REC.IND - 1)/1000000) * sum(temp.e[,1:age_bins]))
+		var.temp<-list(fem.perc,logistic_REC.IND)
 		
 		#CEB: To have non-reproductive seasons (i.e. Months 5,6,7) Skip the next 2 lines when M==5:7
         #numb.produced<-n.size(temp.e[,age_bins],REC.IND)
-		numb.produced<-n.size(temp.e[,age_bins],var.temp)
-        temp.m[,j]<-c(rmultinom(1,numb.produced,temp.e[,age_bins]))
-        # 
-        # if(sum(hap.freq.e0)==0){temp.m[,j]<-0;print('FLAG')}
-        # else{temp.m[,j]<-c(rmultinom(1,numb.produced,temp.e[,age_bins]))}
+		numb.produced <- n.size(temp.e[,age_bins],var.temp)
+		if(sum(temp.e[,age_bins]) > 0 ){
+			temp.m[,j]<-c(rmultinom(1,numb.produced,temp.e[,age_bins]))
+		} else {
+			temp.m[,j] <- 0
+		}
       } else{
         if(j == age_bins){
-          #Mortality calculation with no stochasticity
-          #temp.m[,,j]<- (temp.e[,,j-1] * JM) +  (temp.e[,,j] * AM)
-          #Stochastically adds mortality across haplotypes based on previous months hap freq
-          #hap.freq.e<-freq.convert(temp.e[,j-1])
-          #hap.freq.e2<-freq.convert(temp.e[,j])
+
           temp.m[,j]<-0
+		  
           if(sum(temp.e[,j-1]) > 0){
-            #t<-sample(1:hap.num,size=n.size(temp.e[l,,j-1],JM),replace=TRUE,prob = hap.freq.e)
-            
-            numb.produced<-n.size(temp.e[,j-1],JM)
-            temp.m[,j]<-temp.m[,j]+c(rmultinom(1,numb.produced,temp.e[,j-1]))
+          # numb.juv.maturing <- n.size(temp.e[,j-1],JM)
+          # temp.m[,j]<-temp.m[,j]+c(rmultinom(1,numb.juv.maturing,temp.e[,j-1]))
+			temp.m[,j] <- n.size(temp.e[,j-1],JM)
           }
+		  
           if(sum(temp.e[,j]) > 0){
-            #t2<-sample(1:hap.num,size=n.size(temp.e[l,,j],AM),replace=TRUE,prob = hap.freq.e2)
-            
-            numb.produced<-n.size(temp.e[,j],AM)
-			if(numb.produced > 1000000){numb.produced <- 1000000}
-            temp.m[,j]<-temp.m[,j]+c(rmultinom(1,numb.produced,temp.e[,j]))
+            #numb.adults.surviving<-n.size(temp.e[,j],AM)
+			#if(numb.adults.surviving > 1000000){numb.adults.surviving <- 1000000}
+            #temp.m[,j]<-temp.m[,j]+c(rmultinom(1,numb.adults.surviving,temp.e[,j]))
+			temp.m[,j] <- temp.m[,j] + n.size(temp.e[,j],AM)
           }
-          # if(sum(hap.freq.e) == 1 || sum(hap.freq.e2) == 1){
-          #   #temp.m[l,,j]<-table(factor(t,levels=1:hap.num)) + table(factor(t2,levels=1:hap.num))
-          #   if(!exists('t1')){t1<-0}
-          #   if(!exists('t2')){t2<-0}
-          #   t1+t2
-          # }
-          # else{temp.m[,j]<-0}
-        } else {
+
+		} else {
           #Mortality calculation with no stochasticity
           #temp.m[,,j] <- temp.e[,,j-1] * JM
           #Stochastically adds mortality across haplotypes based on previous months hap freq
@@ -162,10 +147,12 @@ model.func <- function(model.output,s.f.sfreq,M,REC.IND,AM,JM,fem.perc,hap.num,v
             #t<-sample(1:hap.num,size=n.size(temp.e[l,,j-1],JM),replace=TRUE,prob = hap.freq.e)
             #temp.m[l,,j]<-table(factor(t,levels=1:hap.num)) 
             
-            numb.produced<-n.size(temp.e[,j-1],JM)
-            
-            temp.m[,j]<-c(rmultinom(1,numb.produced,temp.e[,j-1])) 
-          } else{temp.m[,j]<-0}
+          # numb.surviving<-n.size(temp.e[,j-1],JM)
+          # temp.m[,j]<-c(rmultinom(1,numb.surviving,temp.e[,j-1])) 
+			temp.m[,j] <- n.size(temp.e[,j-1],JM)
+          } else {
+			temp.m[,j]<-0
+		  }
         }
       }
     }
@@ -176,13 +163,30 @@ model.func <- function(model.output,s.f.sfreq,M,REC.IND,AM,JM,fem.perc,hap.num,v
 n.size<-function(x,m){
   if(is.list(m)){
   #Creation of new fish - m[[1]] = percent females, m[[2]] = recruits per individual
-    y<-round((sum(x)*m[[1]])*(m[[2]]))
-
+    y <- sum(x)*m[[1]]*m[[2]]
+	if(y < 1){
+		y <- rbinom(1,1,y)  #use binom dist to determine if any female offspring are created
+	} else {
+		y <- round(y)
+	}
+	#stochastic alternative to the above code, whether offspring are male or female determined by bionomial dist
+	#if(sum(x)*m[[2]] >= 1){
+		#y <- rbinom(1,round(sum(x)*m[[2]]),m[[1]])
+	#} else {
+		#y <- rbinom(1,1,sum(x)*m[[1]]*m[[2]])
+	#}
   }
   else{
   #Mortality rate of a given mortality rate = m
-    y<-round(sum(x)*m) 
-	#y<-rbinom(1, sum(x), m)
+    # y <- sum(x)*m
+	# if(y < 1){
+		# y <- rbinom(1,1,y)  #use binom dist to determine if any females survive
+	# } else {
+		# y <- round(y)
+	# }
+	#stochastic alternative to the above code, survival determined by binomial dist
+	#y <- rbinom(1, sum(x), prob = m)
+	y <- sapply(x, function(x) rbinom(1, x, m))
   }
   return(y)
 }

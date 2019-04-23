@@ -18,9 +18,9 @@ max_prop <- 1 #This is the maximum proportion of successful recruits.
 prop_increment <- 2 #ex. If prop_increment=4, then the model will count (.25,.5,.75,1)
 
 #initial.females variables
-min_f_number <- 25 #This is the minimum # of females.
-max_f_number <- 1525 #This is the maximum # of females.
-f_increment <- 125 #ex. If f_increment=5, then model will count (5,10,15,20...etc)
+min_f_number <- 500 #This is the minimum # of females.
+max_f_number <- 3025 #This is the maximum # of females.
+f_increment <- 1000 #ex. If f_increment=5, then model will count (5,10,15,20...etc)
 
 ##Native Range Demographics
 #from arlequin
@@ -34,9 +34,9 @@ destination.hap<-c(8,0,2,0,2,13,0,2,2,1,5,5,2,1,8,0,1,1,0,16,0,6,1,0,1,0,2,1,4,3
 
 ## Demographic Parameters
 BIN             <- 12     # Number of different age-classes
-JUVI.MORT       <- 1-0.395  # Juvenile mortality 
-ADULT.MORT      <- 1-0.0083  # Adult mortality 
-ADULT.FRAC      <- 1-0   # Fraction of starting population that are adults* 
+JUVI.MORT       <- 0.395  # Juvenile mortality 
+ADULT.MORT      <- 0.0083  # Adult mortality 
+ADULT.FRAC      <- 1-0.96   # Fraction of starting population that are adults* 
 # * Based on the empirical estimates of Belize 2014 lionfish sample
 #   on the forereef.
 
@@ -45,11 +45,11 @@ ADULT.FRAC      <- 1-0   # Fraction of starting population that are adults*
 # the monthly number of recruits per individual adult lionfish.
 ADULT.FEM.FRAC  <- 0.54128    # Proportion of adults that are females
 ADULT.FEM.MAT   <- 0.6004    # Proportion of females that are mature
-FE              <- 11986.11  # Fecundity - number of eggs per female per month
-ME              <- 15.83   # Egg mortality (days)
+FE              <- 51986.11  # Fecundity - number of eggs per female per month  11986.11
+ME              <- 0.1583   # Egg mortality (per day) 
 DE              <- 0.778       # Egg duration (days)
-ML              <- 0.34884    # Larval mortality (days)
-DL              <- 20.4      # Larval duration (days)
+ML              <- 0.34884    # Larval mortality (per day)  
+DL              <- 20.4      # Larval duration (days) 
 
 ## Standard deviations of each parameter (not in Jason's model)
 # Most recently updated by Gray on 4_8_2019
@@ -69,7 +69,7 @@ DL              <- 20.4      # Larval duration (days)
 
 ## Vectors and List for above ***** DO NOT CHANGE ****
 #Mortalities and time in month for recovery
-Demo.param   <- c(ADULT.MORT,JUVI.MORT,ADULT.FRAC,BIN)
+Demo.param   <- c(1-ADULT.MORT,1-JUVI.MORT,ADULT.FRAC,BIN)
 
 #Demographic parameters used to calculate recruit per individual in monthly
 #time steps

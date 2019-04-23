@@ -1,7 +1,7 @@
 #### Parameters for space_invaders.R model #####
-NP <- 20  			#Number of processors to use
+NP <- 7  			#Number of processors to use
 MONTHS <- 12   		#Number of "months" or portions to divide a year into
-MODEL_DURATION <- 2	#Number of years to run the model
+MODEL_DURATION <- 50	#Number of years to run the model
 
 
 #### Demographic Parameters for Model ####
@@ -15,12 +15,12 @@ destination.name <- "GOM"
 #proportion.successful.recruits variables (All "prop" variables must be greater than 0, and less than or equal to 1)
 min_prop <- .25 #This is the minimum proportion of successful recruits
 max_prop <- 1 #This is the maximum proportion of successful
-prop_increment <- 4 #ex. If prop_increment=4, then the model will count (.25,.5,.75,1) 
+prop_increment <- 2 #ex. If prop_increment=4, then the model will count (.25,.5,.75,1) 
 
 #initial.females variables
 min_f_number <- 5 #This is the minimum # of females.
 max_f_number <- 1000 #This is the maximum # of females.
-f_increment <- 5 #ex. If f_increment=5, then model will count (5, 10, 15, 20...etc)
+f_increment <- 500 #ex. If f_increment=5, then model will count (5, 10, 15, 20...etc)
 
 ##Native Range Demographics
 #from arlequin
@@ -34,8 +34,8 @@ destination.hap<-c(159,405,3,34,0,0,0,0,0)
 
 ## Demographic Parameters
 BIN             <- 12     # Number of different age-classes
-JUVI.MORT       <- 1-0.165  # Juvenile mortality 
-ADULT.MORT      <- 1-0.052  # Adult mortality 
+JUVI.MORT       <- 0.165  # Juvenile mortality 
+ADULT.MORT      <- 0.052  # Adult mortality 
 ADULT.FRAC      <- 1-0.96   # Fraction of starting population that are adults* 
 # * Based on the empirical estimates of Belize 2014 lionfish sample
 #   on the forereef.
@@ -54,7 +54,7 @@ DL              <- 27      # Larval duration (days)
 
 ## Vectors and List for above ***** DO NOT CHANGE ****
 #Mortalities and time in month for recovery
-Demo.param   <- c(ADULT.MORT,JUVI.MORT,ADULT.FRAC,BIN)
+Demo.param   <- c(1-ADULT.MORT,1-JUVI.MORT,ADULT.FRAC,BIN)
 
 #Demographic parameters used to calculate recruit per individual in monthly
 #time steps

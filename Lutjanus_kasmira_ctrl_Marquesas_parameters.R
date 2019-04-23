@@ -50,7 +50,7 @@ ADULT.FRAC      <- 1-0   # Fraction of starting population that are adults*
 ADULT.FEM.FRAC  <- 0.54128    # Proportion of adults that are females
 ADULT.FEM.MAT   <- 0.6004    # Proportion of females that are mature
 FE              <- 11986.11  # Fecundity - number of eggs per female per month
-ME              <- 15.83    # Egg mortality (days)
+ME              <- 0.3    # Egg mortality (days)  15.83???!!!!
 DE              <- 0.778       # Egg duration (days)
 ML              <- 0.34884    # Larval mortality (days)
 DL              <- 20.4      # Larval duration (days)
