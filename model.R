@@ -32,16 +32,18 @@ RPR <- c(ADULT.FEM.FRAC,ADULT.FEM.MAT,FE,ME,DE,ML,DL,FE.sd,K)   #Demographic par
 #### Setup Data ####
 if(exists("source.hap")){haplotype.sources<-list(source.name=source.hap)}
 
-all.thetas<-source.theta+(2:-2)*source.theta.sd
+if(exists("source.theta")){
+	all.thetas<-source.theta+(2:-2)*source.theta.sd
 
-for(i in all.thetas){
-	if(i < 0.5){
-		all.thetas[which(all.thetas == i)] <- 0.5
+	for(i in all.thetas){
+		if(i < 0.5){
+			all.thetas[which(all.thetas == i)] <- 0.5
+		}
 	}
-}
 
-source.dist<-as.list(all.thetas)
-names(source.dist)<-paste('Sim',source.name,'theta',all.thetas,sep='.')
+	source.dist<-as.list(all.thetas)
+	names(source.dist)<-paste('Sim',source.name,'theta',all.thetas,sep='.')
+}
 
 if(exists("source.hap")){
 	if(exists("source.theta")){
