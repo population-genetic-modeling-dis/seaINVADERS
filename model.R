@@ -125,7 +125,7 @@ for(v in proportion.successful.recruits){
 	
 	
 	#### Demographic Plots ####
-	pdf(paste('./', outDir,'/', names(sources)[S],'-rpr-',v,'-demographic_plots.pdf',sep=''),width=100,height=100,onefile = T)
+	pdf(paste('./', outDir,'/', names(sources)[S],'-rpr-',v,'-demographic_plots.pdf',sep=''),onefile = T)
 		#loop through number of starting females
 		for(numfem in initial.females){
 			tmp_s <- s[,,which(initial.females == numfem),]
