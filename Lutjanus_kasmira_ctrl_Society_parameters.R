@@ -7,11 +7,9 @@ NUM_BOOTSTRAPS   <- 100		#Number of simulations to run with each source
 source.name      <- "Society"
 source.theta     <- 8.52248
 source.theta.sd  <- 2.69315
-source.hap       <-c(4,1,1,1,1,6,2,0,0,0,0,0,0,0,4,3,0,0,1,3,1,1,0,1,0,2,0,0,1,0,1,0,0,1,1,1,1,1,1)   #haplotype freqs
-
+source.hap       <- c(4,1,1,1,1,6,2,0,0,0,0,0,0,0,4,3,0,0,1,1,1,3,1,1,1,0,1,1,0,1,2,0,0,1,1,0,1,0,0,1,1,1,1,1,1,2,1)
 destination.name <- "Hawaii"
-destination.hap  <-c(8,0,2,0,2,13,0,2,2,1,5,5,2,1,8,0,1,1,0,16,0,6,1,0,1,0,2,1,4,3,0,1,1,0,0,1,0,0,0)
-
+destination.hap  <- c(8,0,2,0,2,13,0,2,2,1,5,5,2,1,8,0,1,1,0,0,0,16,0,0,6,1,0,0,1,0,0,2,1,4,0,3,0,1,1,0,0,1,0,0,0,0,0)
 
 #### Demographic Parameters for Model ####
 MONTHS           <- 12   	#Number of "months" or portions to divide a year into (age repro mat)
