@@ -247,6 +247,11 @@ model.statistics<-function(destination.haplotypes,model.freq){
   sample.sum<-0*model.freq[dim(model.freq)[1],,,]
   for(invaders in 1:dim(model.freq)[3]){
     for(boot in 1:dim(model.freq)[4]){
+		#handle NaNs
+		if(model.freq[dim(model.freq)[1],,invaders,boot][1] == "NaN"){
+			model.freq[dim(model.freq)[1],,invaders,boot]<-0
+			model.freq[dim(model.freq)[1],,invaders,boot][1]<-1
+		}
       sample.sum[,invaders,boot]<-rmultinom(1,sum(destination.haplotypes),model.freq[dim(model.freq)[1],,invaders,boot])
     }
   }
