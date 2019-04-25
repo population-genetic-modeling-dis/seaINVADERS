@@ -22,15 +22,18 @@ source(parameters)
 #### User Inputs from Parameters File ####
 BS <- NUM_BOOTSTRAPS
 RUN.MONTH <- MONTHS*MODEL_DURATION     # Number of 12 months * number of years to run model
-initial.females <- seq(min_f_number,max_f_number,length.out=f_bins) # vector of number of starting female lionfish
-proportion.successful.recruits<-seq(min_prop,max_prop,length.out=prop_bins)
+initial.females <- round(seq(min_f_number,max_f_number,length.out=f_bins)) # vector of number of starting female lionfish
+proportion.successful.recruits <- round(seq(min_prop,max_prop,length.out=prop_bins))
 np <- NP-1 #Number of processors to use
 Demo.param <- c(1-ADULT.MORT,1-JUVI.MORT,1-ADULT.FRAC,BIN)   #mortalities
 if(!exists("FE.sd")){FE.sd <- 0}
 RPR <- c(ADULT.FEM.FRAC,ADULT.FEM.MAT,FE,ME,DE,ML,DL,FE.sd,K)   #Demographic parameters used to calculate recruit per individual in monthly time steps
 
 #### Setup Data ####
-if(exists("source.hap")){haplotype.sources<-list(source.name=source.hap)}
+if(exists("source.hap")){
+	haplotype.sources <- list(source.hap)
+	names(haplotype.sources) <- paste(source.name,'Haplotypes',sep='.')
+}
 
 if(exists("source.theta")){
 	all.thetas<-source.theta+(2:-2)*source.theta.sd
@@ -42,7 +45,11 @@ if(exists("source.theta")){
 	}
 
 	source.dist<-as.list(all.thetas)
-	names(source.dist)<-paste('Sim',source.name,'theta',all.thetas,sep='.')
+	names(source.dist)<-paste(source.name,'theta',all.thetas,sep='.')
+} else if(exists("source.thetas")){
+	all.thetas<-source.thetas
+	source.dist<-as.list(all.thetas)
+	names(source.dist)<-paste(source.name,'theta',all.thetas,sep='.')
 }
 
 if(exists("source.hap")){
