@@ -341,7 +341,7 @@ plotting.statistics<-function(stats.output,start.females,title){
      geom_point()+geom_errorbar(aes(ymin=lower.Hn, ymax=upper.Hn))+
      geom_point(aes(y=median.Hn),col='red')+
      geom_hline(yintercept=stats.output[[1]][[3]],col='red',lty=2)+
-     theme_bw()+theme(legend.position="none")+xlab('Starting Number of Females')+ylab('Haplotype Richness')+ggtitle(title)+
+     theme_bw()+theme(legend.position="none")+xlab('Number of Female Colonists')+ylab('Haplotype Richness')+ggtitle(title)+
      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
    #Hn.plot
    
@@ -349,7 +349,7 @@ plotting.statistics<-function(stats.output,start.females,title){
    Hn.probability.plot<-ggplot(data=plot.data,aes(x=starting.females,y=logLik.Hn))+
      geom_point()+
      theme_bw()+theme(legend.position="none")+
-     xlab(paste('Starting Number of Females','\n','Most probable number of females = ',max.prob.Hn,sep=''))+
+     xlab(paste('Number of Female Colonists','\n','Most probable number of female colonists = ',max.prob.Hn,sep=''))+
      ylab('Probability of Having Observed # of Haplotypes')+ggtitle(title)+
      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
    #Hn.probability.plot
@@ -359,7 +359,7 @@ plotting.statistics<-function(stats.output,start.females,title){
      geom_point(aes(y=median.Hs),col='red')+
      geom_hline(yintercept=stats.output[[2]][[3]][1],col='red',lty=2)+
      geom_ribbon(ymax=stats.output[[2]][[3]][3],ymin=stats.output[[2]][[3]][2],fill='red',alpha=0.2)+
-     theme_bw()+theme(legend.position="none")+xlab('Starting Number of Females')+ylab('Haplotype Diversity')+ggtitle(title)+
+     theme_bw()+theme(legend.position="none")+xlab('Number of Female Colonists')+ylab('Haplotype Diversity')+ggtitle(title)+
      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
    #Hs.plot
    
@@ -367,7 +367,7 @@ plotting.statistics<-function(stats.output,start.females,title){
    Hs.probability.plot<-ggplot(data=plot.data,aes(x=starting.females,y=logLik.Hs))+
      geom_point()+
      theme_bw()+theme(legend.position="none")+
-     xlab(paste('Starting Number of Females','\n','Most probable number of females = ',max.prob.Hs,sep=''))+
+     xlab(paste('Number of Female Colonists','\n','Most probable number of female colonists = ',max.prob.Hs,sep=''))+
      ylab('Probability of Having Observed Haplotype Diversity')+ggtitle(title)+
      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
    #Hs.probability.plot
@@ -383,7 +383,7 @@ plotting.statistics<-function(stats.output,start.females,title){
    joint.probability.plot<-ggplot(data=plot.data,aes(x=starting.females,y=joint))+
      geom_point()+
      theme_bw()+theme(legend.position="none")+
-     xlab(paste('Starting Number of Females','\n','Most probable number of females = ',max.prob.joint,sep=''))+
+     xlab(paste('Number of Female Colonists','\n','Most probable number of female colonists = ',max.prob.joint,sep=''))+
      ylab('Probability of Having Observed Haplotype Diversity and Richness')+ggtitle(title)+
      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
    

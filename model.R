@@ -66,7 +66,8 @@ if(exists("source.hap") ){
 	}
 }
 
-haplotype.destinations<-list(destination.name=destination.hap)
+haplotype.destinations<-list(destination.hap)
+names(haplotype.destinations) <- destination.name
 destinations<-c(haplotype.destinations)
 
 for.workers<-ls()
