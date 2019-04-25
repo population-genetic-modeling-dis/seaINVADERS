@@ -252,15 +252,17 @@ model.statistics<-function(destination.haplotypes,model.freq){
 			model.freq[dim(model.freq)[1],,invaders,boot]<-0
 			model.freq[dim(model.freq)[1],,invaders,boot][1]<-1
 		}
+		#this line simulates the genetic sample from the colonizing population
       sample.sum[,invaders,boot]<-rmultinom(1,sum(destination.haplotypes),model.freq[dim(model.freq)[1],,invaders,boot])
     }
   }
   
+  #comment out?  CEB
   if(length(destination.haplotypes)!=dim(model.freq)[2]){
     destination.haplotypes<-c(destination.haplotypes,rep(0,abs(dim(model.freq)[2]-length(destination.haplotypes))))
   }
   
-  #Bootstrap for observed    #CEB if sampling from dest is not great, then use estimate of theta a ewan's sampling to do this
+  #Bootstrap for observed    
   boot.dest.hap<-rmultinom(1000,sum(destination.haplotypes),destination.haplotypes)
   
   #Richness
@@ -276,10 +278,13 @@ model.statistics<-function(destination.haplotypes,model.freq){
   hap<-list(prob.Hn,sim.Hn,obs.Hn)
   
   #Diversity
+  # HS.calc<-function(x){
+    # 1-sum((x/sum(x))^2)
+  # }
   HS.calc<-function(x){
-    1-sum((x/sum(x))^2)
-  }
-  
+	p <- x/sum(x)
+	sum(x)*(1-sum(p^2))/(sum(x)-1)
+  } 
   obs.Hs<-HS.calc(destination.haplotypes)
   
   boot.Hs<-apply(boot.dest.hap,2,HS.calc)

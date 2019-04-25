@@ -5,10 +5,11 @@ NUM_BOOTSTRAPS   <- 100		#Number of simulations to run with each source
 
 #### Population Genetic Parameters ####
 source.name      <- "Society"
-#source.theta     <- 8.52248   #source population theta mean estimate
-#source.theta.sd  <- 2.69315   #source population theta stdev estimate
-source.thetas    <- c(35.225941,29.905974,20.092555,29.905974-12.537738)  #list of thetas to run, must comment out source.theta and source.theta.sd or this will be ignored
+#source.theta     <- 35.225941   #source population theta mean estimate, use Theta(k) from Arlequin
+#source.theta.sd  <- 2.69315   #source population theta stdev estimate, use Theta(k) from Arlequin
+source.thetas    <- c(20.092555,35.225941,62.439792)  #list of thetas to run, must comment out source.theta and source.theta.sd or this will be ignored
 source.hap       <- c(4,1,1,1,1,6,2,0,0,0,0,0,0,0,4,3,0,0,1,1,1,3,1,1,1,0,1,1,0,1,2,0,0,1,1,0,1,0,0,1,1,1,1,1,1,2,1)
+
 destination.name <- "Hawaii"
 destination.hap  <- c(8,0,2,0,2,13,0,2,2,1,5,5,2,1,8,0,1,1,0,0,0,16,0,0,6,1,0,0,1,0,0,2,1,4,0,3,0,1,1,0,0,1,0,0,0,0,0)
 
