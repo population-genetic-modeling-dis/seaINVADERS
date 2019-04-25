@@ -52,14 +52,14 @@ if(exists("source.theta")){
 	names(source.dist)<-paste(source.name,'theta',all.thetas,sep='.')
 }
 
-if(exists("source.hap")){
-	if(exists("source.theta")){
+if(exists("source.hap") ){
+	if(exists("source.theta") || exists("source.thetas")){
 		sources<-c(source.dist,haplotype.sources)
 	} else {
 		sources<-c(haplotype.sources)
 	}
 } else {
-	if(exists("source.theta")){
+	if(exists("source.theta") || exists("source.thetas")){
 		sources<-c(source.dist)
 	} else {
 		stop("Space Invaders Haulted, no source data provided")
@@ -139,7 +139,7 @@ for(v in proportion.successful.recruits){
 		for(numfem in initial.females){
 			tmp_s <- s[,,which(initial.females == numfem),]
 			#this takes mean pop size across all bootstrap at each time point
-			plot(apply(tmp_s[,,], 1, sum)/dim(tmp_s)[3], main=paste("Colonists =", numfem, sep=" ") )
+			plot(apply(tmp_s[,,], 1, sum)/dim(tmp_s)[3], main=paste(names(sources)[S],'-rpr-',v," Colonists = ", numfem, sep=""),xlab="Months Since Colonization",ylab="Destination Population Size" )
 			#print(demoplot)
 		}
     dev.off()
