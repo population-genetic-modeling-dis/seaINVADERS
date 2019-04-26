@@ -23,7 +23,7 @@ source(parameters)
 BS <- NUM_BOOTSTRAPS
 RUN.MONTH <- MONTHS*MODEL_DURATION     # Number of 12 months * number of years to run model
 initial.females <- round(seq(min_f_number,max_f_number,length.out=f_bins)) # vector of number of starting female lionfish
-proportion.successful.recruits <- round(seq(min_prop,max_prop,length.out=prop_bins))
+proportion.successful.recruits <- seq(min_prop,max_prop,length.out=prop_bins)
 np <- NP-1 #Number of processors to use
 Demo.param <- c(1-ADULT.MORT,1-JUVI.MORT,1-ADULT.FRAC,BIN)   #mortalities
 if(!exists("FE.sd")){FE.sd <- 0}
@@ -69,6 +69,17 @@ if(exists("source.hap") ){
 haplotype.destinations<-list(destination.hap)
 names(haplotype.destinations) <- destination.name
 destinations<-c(haplotype.destinations)
+
+#name lists and pack them together into one data structure
+if(exists("dest.gendiv")){
+	names(dest.gendiv) <- c("gendiv","stdev")
+	dest.params <- dest.gendiv
+} else if(exists("dest.theta")){
+	names(dest.theta) <- "theta"
+	dest.params <- dest.theta
+} else {
+	dest.params <- NULL
+}
 
 for.workers<-ls()
 
@@ -152,7 +163,7 @@ for(v in proportion.successful.recruits){
     pdf(paste('./', outDir,'/', names(sources)[S],'-rpr-',v,'-statistical_plots.pdf',sep=''),onefile = T)
     
     for(D in 1:length(destinations)){
-      stats.output<-model.statistics(destination.haplotypes=destinations[[D]],model.freq=f)
+      stats.output<-model.statistics(destination.haplotypes=destinations[[D]],model.freq=f,dest.params=dest.params)
       
       statistical.plots<-plotting.statistics(stats.output,start.females=initial.females,title=paste(names(sources)[S],'to',names(destinations)[D]))
       

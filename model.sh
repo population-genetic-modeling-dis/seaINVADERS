@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#SBATCH -J SeaInv                 # Name of the job
-#SBATCH -o SeaInvaders_%j.out     # Name of file that will have program output
-#SBATCH -e SeaInvaders_%j.err     # Name of the file that will have job errors, if any
+#SBATCH -J seaNVDRS                 # Name of the job
+#SBATCH -o seaNVDRS_%j.out     # Name of file that will have program output
+#SBATCH -e seaNVDRS_%j.err     # Name of the file that will have job errors, if any
 #SBATCH -N 1                      # Number of nodes ( the normal cluster partion has 22 total )
 #SBATCH -n 40                     # Number of cores ( my test allocated 2 per node )
 #SBATCH -p cbirdq                 # Partition    

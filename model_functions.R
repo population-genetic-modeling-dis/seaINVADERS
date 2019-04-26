@@ -241,7 +241,7 @@ plotting.model<-function(model.array,start.females,type,bootstrap_culling=0.95,m
 
 #### Statistics ####
 #destination.haplotypes=atlantic.hap;source.haplotypes = hap.num.start.freq;model.freq=full.model.freq
-model.statistics<-function(destination.haplotypes,model.freq){
+model.statistics<-function(destination.haplotypes, model.freq, dest.params){
 
   #Draw sample from bootstrap distributions with number = destination haplotype count
   sample.sum<-0*model.freq[dim(model.freq)[1],,,]
@@ -262,7 +262,7 @@ model.statistics<-function(destination.haplotypes,model.freq){
     destination.haplotypes<-c(destination.haplotypes,rep(0,abs(dim(model.freq)[2]-length(destination.haplotypes))))
   }
   
-  #Bootstrap for observed    
+  #Bootstrap to simulate drawing genetic sample from colonizing population for observed gen div   
   boot.dest.hap<-rmultinom(1000,sum(destination.haplotypes),destination.haplotypes)
   
   #Richness
@@ -285,11 +285,26 @@ model.statistics<-function(destination.haplotypes,model.freq){
 	p <- x/sum(x)
 	sum(x)*(1-sum(p^2))/(sum(x)-1)
   } 
+  
   obs.Hs<-HS.calc(destination.haplotypes)
   
-  boot.Hs<-apply(boot.dest.hap,2,HS.calc)
-  Hs.CI<-quantile(boot.Hs,c(0.025,0.975))
-  
+  #decide how to define confidence window around observed destination gen div
+  if(dest.params == NULL){
+	  #assume that dest haps represent whole pop, not just a sample
+	  boot.Hs <- apply(boot.dest.hap,2,HS.calc)
+	  Hs.CI <- quantile(boot.Hs,c(0.025,0.975))
+  } else if(length(dest.params == 2)) {
+	  #use the est gendiv and stdev of the est
+	  #dest.params holds gen div and stdev of gen div
+	  Hs.CI <- c(obs.Hs - 1*dest.params[2], obs.Hs + 1*dest.params[2])
+  } else {
+	  #use est of theta(k) to simulate drawing samples from dest population
+	  #dummy code, for now
+  	  boot.Hs <- apply(boot.dest.hap,2,HS.calc)
+	  Hs.CI <- quantile(boot.Hs,c(0.025,0.975))
+  }
+
+  #simulate samples from destination population for calculating gen div
   sim.Hs<-apply(sample.sum,c(2,3),HS.calc)
   
   prob.Hs<-rowSums(sim.Hs>=Hs.CI[1] & sim.Hs<=Hs.CI[2])/ncol(sim.Hs)

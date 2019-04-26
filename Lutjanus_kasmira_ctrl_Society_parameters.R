@@ -1,17 +1,19 @@
 #### Parameters for space_invaders.R model #####
-NP               <- 40		#Number of processors to use
+NP               <- 20		#Number of processors to use
 MODEL_DURATION   <- 56		#Number of years to run the model
 NUM_BOOTSTRAPS   <- 100		#Number of simulations to run with each source
 
 #### Population Genetic Parameters ####
 source.name      <- "Society"
+source.hap       <- c(4,1,1,1,1,6,2,0,0,0,0,0,0,0,4,3,0,0,1,1,1,3,1,1,1,0,1,1,0,1,2,0,0,1,1,0,1,0,0,1,1,1,1,1,1,2,1)
 #source.theta     <- 35.225941   #source population theta mean estimate, use Theta(k) from Arlequin
 #source.theta.sd  <- 2.69315   #source population theta stdev estimate, use Theta(k) from Arlequin
-source.thetas    <- c(20.092555,35.225941,62.439792)  #list of thetas to run, must comment out source.theta and source.theta.sd or this will be ignored
-source.hap       <- c(4,1,1,1,1,6,2,0,0,0,0,0,0,0,4,3,0,0,1,1,1,3,1,1,1,0,1,1,0,1,2,0,0,1,1,0,1,0,0,1,1,1,1,1,1,2,1)
+#source.thetas    <- c(20.092555,35.225941,62.439792)  #list of thetas to run, must comment out source.theta and source.theta.sd or this will be ignored, use Theta(k) from Arlequin
 
 destination.name <- "Hawaii"
 destination.hap  <- c(8,0,2,0,2,13,0,2,2,1,5,5,2,1,8,0,1,1,0,0,0,16,0,0,6,1,0,0,1,0,0,2,1,4,0,3,0,1,1,0,0,1,0,0,0,0,0)
+dest.gendiv      <- c(0.9241,0.0131)   #(mean,stdev)
+#dest.theta       <- c(11.119612)  #c(6.828954, 11.119612, 17.767586) list of thetas to run, use Theta(k) from Arlequin, comment out if haplotype vector adequately describes diversity of entire population
 
 #### Demographic Parameters for Model ####
 MONTHS           <- 12   	#Number of "months" or portions to divide a year into (age repro mat)
@@ -23,7 +25,7 @@ prop_bins        <- 3 		#ex. If prop_increment=4, then 4 different props will be
 
 min_f_number     <- 20 	#This is the minimum # of colonizing females.
 max_f_number     <- 1000 	#This is the maximum # of colonizing females.
-f_bins           <- 39 		#ex. If f_increment=3, then three different numbers of female colonists will be run (min, min+(max-min)/2,max)
+f_bins           <- 19 		#ex. If f_increment=3, then three different numbers of female colonists will be run (min, min+(max-min)/2,max)
 
 BIN             <- 12     	# Number of different age-classes
 JUVI.MORT       <- 0.395  	# Juvenile mortality ***too high?
