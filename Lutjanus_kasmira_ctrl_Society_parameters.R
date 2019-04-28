@@ -1,4 +1,4 @@
-#### Parameters for space_invaders.R model #####
+#### Parameters for seaINVADERS.R model #####
 NP               <- 20		#Number of processors to use
 MODEL_DURATION   <- 2		#Number of years to run the model
 NUM_BOOTSTRAPS   <- 2		#Number of simulations to run with each source

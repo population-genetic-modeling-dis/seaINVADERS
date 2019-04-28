@@ -1,37 +1,37 @@
 #### Parameters for space_invaders.R model #####
-NP               <- 7 	#Number of processors to use
-MODEL_DURATION   <- 50	#Number of years to run the model
-NUM_BOOTSTRAPS   <- 10 #Number of simulations to run with each source
-
-
+NP               <- 40 	#Number of processors to use
+MODEL_DURATION   <- 15	#Number of years to run the model
+NUM_BOOTSTRAPS   <- 2 #Number of simulations to run with each source
 
 #### Population Genetic Parameters ####
 species          <- "PtrVol"
 source.name      <- "Atlantic"
-source.theta    <- 7.63797
-source.theta.sd <- 2.65535
+#source.thetas    <- c(1.789662 + (seq(-2,2,2)*0.608607))  #Theta(S), n=459
+#source.thetas    <- c(0.728371,1.469799,2.773071)  #Theta(k), n=459
+source.thetas    <- c(1.789662,2.365575,1.469799)  #Theta(S,Pi,k), n=459
 source.hap      <-c(194,172,24,19,14,19,15,1,1)
 
 destination.name <- "Carribean"
 destination.hap <-c(159,405,3,34,0,0,0,0,0)
+#dest.gendiv      <- c(0.4735,0.0176)   #(mean,stdev)
 
 #### Demographic Parameters for Model ####
 
 MONTHS           <- 12	#Number of "months" or portions to divide a year into
 thin             <- FALSE 	#Save only first and last month of simulated pops?
 
-min_prop        <- .25 #This is the minimum proportion of successful recruits
+min_prop        <- 1 #This is the minimum proportion of successful recruits
 max_prop        <- 1 #This is the maximum proportion of successful
-prop_bins       <- 2 #ex. If prop_increment=4, then 4 different props will be run, ex: (.25,.5,.75,1)
+prop_bins       <- 1 #ex. If prop_increment=4, then 4 different props will be run, ex: (.25,.5,.75,1)
 
-min_f_number    <- 5 #This is the minimum # of females.
+min_f_number    <- 2 #This is the minimum # of females.
 max_f_number    <- 1000 #This is the maximum # of females.
-f_bins          <- 3 #ex. If f_increment=3, then three different numbers of female colonists will be run (min, min+(max-min)/2,max)
+f_bins          <- 39 #ex. If f_increment=3, then three different numbers of female colonists will be run (min, min+(max-min)/2,max)
 
 BIN             <- 12     # Number of different age-classes
 JUVI.MORT       <- 0.165  # Juvenile mortality 
 ADULT.MORT      <- 0.052  # Adult mortality 
-ADULT.FRAC      <- 1-0.96   # Fraction of starting population that are adults* 
+ADULT.FRAC      <- 1   # Fraction of starting population that are adults* 
 # * Based on the empirical estimates of Belize 2014 lionfish sample
 #   on the forereef.
 
@@ -46,6 +46,6 @@ DE              <- 3       # Egg duration (days)
 ML              <- 0.35    # Larval mortality (days)
 DL              <- 27      # Larval duration (days)
 
-K               <- 100000000	#Carrying capacity, used to modulate "birth rate" for logistic pop growth
+K               <- 1000000	#Carrying capacity, used to modulate "birth rate" for logistic pop growth
 
 #FE.sd           <- 1       # Standard dev in fecundity, if enabled and >0 then fecundity will be stochastic within a bootstrap (same fecundity per year for a rep)
