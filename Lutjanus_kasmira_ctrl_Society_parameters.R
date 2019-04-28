@@ -1,13 +1,12 @@
 #### Parameters for space_invaders.R model #####
 NP               <- 20		#Number of processors to use
-MODEL_DURATION   <- 56		#Number of years to run the model
-NUM_BOOTSTRAPS   <- 100		#Number of simulations to run with each source
+MODEL_DURATION   <- 2		#Number of years to run the model
+NUM_BOOTSTRAPS   <- 2		#Number of simulations to run with each source
 
 #### Population Genetic Parameters ####
+species          <- "LutKas"
 source.name      <- "Society"
 source.hap       <- c(4,1,1,1,1,6,2,0,0,0,0,0,0,0,4,3,0,0,1,1,1,3,1,1,1,0,1,1,0,1,2,0,0,1,1,0,1,0,0,1,1,1,1,1,1,2,1)
-#source.theta     <- 35.225941   #source population theta mean estimate, use Theta(k) from Arlequin
-#source.theta.sd  <- 2.69315   #source population theta stdev estimate, use Theta(k) from Arlequin
 #source.thetas    <- c(20.092555,35.225941,62.439792)  #list of thetas to run, must comment out source.theta and source.theta.sd or this will be ignored, use Theta(k) from Arlequin
 
 destination.name <- "Hawaii"
@@ -21,10 +20,10 @@ thin             <- FALSE	# Save only first and last month of simulated pops?
 
 min_prop         <- 4		#This is the minimum proportion of successful recruits relative to that of the demographic parameters in the literature
 max_prop         <- 10		#This is the maximum proportion of successful recruits relative to that of the demographic parameters in the literature
-prop_bins        <- 3 		#ex. If prop_increment=4, then 4 different props will be run, ex: (.25,.5,.75,1)
+prop_bins        <- 2 		#ex. If prop_increment=4, then 4 different props will be run, ex: (.25,.5,.75,1)
 
 min_f_number     <- 20 	#This is the minimum # of colonizing females.
-max_f_number     <- 1000 	#This is the maximum # of colonizing females.
+max_f_number     <- 100 	#This is the maximum # of colonizing females.
 f_bins           <- 19 		#ex. If f_increment=3, then three different numbers of female colonists will be run (min, min+(max-min)/2,max)
 
 BIN             <- 12     	# Number of different age-classes

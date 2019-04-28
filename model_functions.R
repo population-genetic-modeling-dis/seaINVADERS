@@ -35,14 +35,14 @@ run.Model <- function (FEMALE.START,hap.num.start.freq,RUN.MONTH,Demo.param,RPR,
     #s.f<-sample(1:hap.info.vec[2],size = hap.info.vec[1],replace = TRUE, prob= hap.num.start.freq)
     #s.f.sfreq<-table(factor(s.f, levels=1:hap.info.vec[2]))
     
-    s.f.sfreq<-c(rmultinom(1,FEMALE.START,hap.num.start.freq)) #Here is where drawing from initial population can be vectorized - change from 1 to >1
+    s.f.sfreq <- c(rmultinom(1,FEMALE.START,hap.num.start.freq)) #Here is where drawing from initial population can be vectorized - change from 1 to >1
     #print(s.f.sfreq)
     #Also need to change to have matrix of outputs not vector
     #s.f.sfreq<-s.f/hap.info.vec[1]
   } else if (length(hap.num.start.freq)==1){
-    s.f.sfreq<-rinfall(hap.num.start.freq,FEMALE.START)
-    s.f.sfreq<-c(s.f.sfreq,rep(0,300-length(s.f.sfreq)))
-    hap.num.init<-300
+    s.f.sfreq <- rinfall(hap.num.start.freq,FEMALE.START)
+    s.f.sfreq <- c(s.f.sfreq,rep(0,150-length(s.f.sfreq)))
+    hap.num.init <- 150
   }
 
   
@@ -289,7 +289,7 @@ model.statistics<-function(destination.haplotypes, model.freq, dest.params){
   obs.Hs<-HS.calc(destination.haplotypes)
   
   #decide how to define confidence window around observed destination gen div
-  if(dest.params == NULL){
+  if(is.null(dest.params)){
 	  #assume that dest haps represent whole pop, not just a sample
 	  boot.Hs <- apply(boot.dest.hap,2,HS.calc)
 	  Hs.CI <- quantile(boot.Hs,c(0.025,0.975))

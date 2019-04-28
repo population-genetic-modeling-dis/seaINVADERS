@@ -54,13 +54,13 @@ if(exists("source.theta")){
 
 if(exists("source.hap") ){
 	if(exists("source.theta") || exists("source.thetas")){
-		sources<-c(source.dist,haplotype.sources)
+		sources <- c(source.dist,haplotype.sources)
 	} else {
-		sources<-c(haplotype.sources)
+		sources <- c(haplotype.sources)
 	}
 } else {
 	if(exists("source.theta") || exists("source.thetas")){
-		sources<-c(source.dist)
+		sources <- c(source.dist)
 	} else {
 		stop("Space Invaders Haulted, no source data provided")
 	}
@@ -93,7 +93,7 @@ clusterEvalQ(cluster, {library(abind)})
 #### Run the model ####
 for(v in proportion.successful.recruits){
   clusterExport(cl=cluster, list('v'),envir=environment())
-  for(S in 1:length(sources)){
+  for(S in 1:length(sources) ){
     clusterExport(cl=cluster, list('S'),envir=environment())
     
     s<-parallel::parSapply(cl=cluster, initial.females, function(x) replicate(BS, run.Model(FEMALE.START=x,hap.num.start.freq=sources[[S]],RUN.MONTH,Demo.param,RPR,verbose=FALSE,variable.RPR=v,THIN=thin), 
