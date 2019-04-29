@@ -37,19 +37,22 @@ if(exists("source.hap")){
 
 if(exists("source.theta")){
 	all.thetas<-source.theta+(2:-2)*source.theta.sd
-
 	for(i in all.thetas){
 		if(i < 0.5){
 			all.thetas[which(all.thetas == i)] <- 0.5
 		}
 	}
-
 	source.dist<-as.list(all.thetas)
 	names(source.dist)<-paste(source.name,'theta',all.thetas,sep='.')
 } else if(exists("source.thetas")){
 	all.thetas<-source.thetas
 	source.dist<-as.list(all.thetas)
 	names(source.dist)<-paste(source.name,'theta',all.thetas,sep='.')
+}
+
+if(exists("all.thetas")){
+	#CEB calculate how large to make matrix to hold haplotypes
+	HapMatrixLen <- round(1.25 * max(sapply(1:1000, function(x) length(rinfall(max(all.thetas),max(initial.females))))))
 }
 
 if(exists("source.hap") ){
@@ -96,7 +99,7 @@ for(v in proportion.successful.recruits){
   for(S in 1:length(sources) ){
     clusterExport(cl=cluster, list('S'),envir=environment())
     
-    s<-parallel::parSapply(cl=cluster, initial.females, function(x) replicate(BS, run.Model(FEMALE.START=x,hap.num.start.freq=sources[[S]],RUN.MONTH,Demo.param,RPR,verbose=FALSE,variable.RPR=v,THIN=thin), 
+    s<-parallel::parSapply(cl=cluster, initial.females, function(x) replicate(BS, run.Model(FEMALE.START=x,hap.num.start.freq=sources[[S]],RUN.MONTH,Demo.param,RPR,verbose=FALSE,variable.RPR=v,THIN=thin,HapMatrixLen=HapMatrixLen), 
                                                                               simplify = "array"), simplify = 'array')
     
 # 	s<-sapply(initial.females, function(x) replicate(BS, run.Model(FEMALE.START=x,hap.num.start.freq=sources[[S]],RUN.MONTH,Demo.param,RPR,F,variable.RPR=v), 

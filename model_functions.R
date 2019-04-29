@@ -11,7 +11,7 @@
 #              local scale over time.  Demographic parameters are default set 
 #              to those of the red lionfish (Pterois volitans). 
 
-run.Model <- function (FEMALE.START,hap.num.start.freq,RUN.MONTH,Demo.param,RPR,verbose,variable.RPR=1,THIN=T) {
+run.Model <- function (FEMALE.START,hap.num.start.freq,RUN.MONTH,Demo.param,RPR,verbose,variable.RPR=1,THIN=T,HapMatrixLen) {
   
   ## New Calculation
   #   This constant represents the fraction of surviving larvae (recruits) per adult, based on the egg and 
@@ -41,8 +41,8 @@ run.Model <- function (FEMALE.START,hap.num.start.freq,RUN.MONTH,Demo.param,RPR,
     #s.f.sfreq<-s.f/hap.info.vec[1]
   } else if (length(hap.num.start.freq)==1){
     s.f.sfreq <- rinfall(hap.num.start.freq,FEMALE.START)
-    s.f.sfreq <- c(s.f.sfreq,rep(0,150-length(s.f.sfreq)))
-    hap.num.init <- 150
+    s.f.sfreq <- c(s.f.sfreq,rep(0,HapMatrixLen-length(s.f.sfreq)))
+    hap.num.init <- HapMatrixLen
   }
 
   
