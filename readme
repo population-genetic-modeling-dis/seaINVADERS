@@ -1,0 +1,122 @@
+seaINVADERS 1.0
+
+by Jason Selwyn, Martin French, and Chris Bird
+
+An R script designed to simulate the most likely number of individuals 
+introduced in a colonization event. This is an updated version of the 
+simulation model published by Selwyn et al. 2017. 
+
+Improvements
+	- Stochastic mortality applied to both haplotypes and number of 
+		individuals
+	- Gene diversity calculations are corrected for sample size.
+		This was not neccessary for lionfish due to large
+		sample sizes and low genetic diversity
+	- Logistic population growth
+	- Settings have been generalized to a wider array of species
+
+How to run:
+	1.) Configure parameters.R file
+		a.) estimate source pop theta (k) using arlequin and/or
+		b.) provide a vector of haplotype frequencies from
+			a source population 
+		c.) provide a vector of haplotype frequencies from
+			the destination population and
+		d.) the estimated gene diversity of the destination pop
+			a.) if you have thoroughly sampled the destination
+				pop, then you don't have to do this
+		e.) provide standard demographic parameters
+			a.) don't sweat this too hard, this will control
+				pop growth rate and you can specify a
+				constant to modulate the growth rate
+			b.) the faster the population grows, the less 
+				chance genetic drift has to change 
+				allele frequencies
+
+	2.) Configure the model.sh file for your supercomputer
+		a.) you can also run on a workstation, but you'll have to
+			mimick what happens in the model.sh file
+
+	3.) On a supercomputer, use sbatch to submit the job to your 
+		slurm scheduler
+		$ sbatch model.sh <parameters file>
+
+Outputs
+	- population size and likelihood plots
+	- RData file (see notes below)
+	- csv file of summary data in tidy format
+	- error logs
+
+Assumptions:
+	1.)  No Allee effects
+	2.)  No elevated mortality in the colonizers
+	3.)  No variance in reproductive success
+	4.)  Logistic growth - enforced on recruits per individual
+	5.)  Single introduction
+	6.)  Genetic data is assumed to be haploid (mtDNA)
+	7.)  Locus obeys infinite alleles model
+	8.)  Source population is in mutation-drift equilibrium
+	9.)  Deterministic, monthly reproduction
+        10.) Colonists are adults
+	11.) PLD <= 30 days
+	12.) Reproductive maturity occurs at same age for all
+
+How it works:
+	If source pop is defined by estimate of theta, the Ewan's 
+	sampling distribution is used to draw a sample of individuals 
+	from the source population.  Otherwise, the vector of haplotypes
+	from the source population is assumed to adequately represent 
+	the genetic diversity of the whole population and the sample
+	of colonizers is drawn randomly using the multinomial 
+	distribution.
+
+	The colonizers start reproducing each month. Eggs are produced
+	by the user-specified proportion of females and females eggs
+	are tracked.  Egg and larval mortality occurs in the first
+	month, resulting in a given number of recruits per individual
+	(RPI).  The RPI is multiplied by a used specified constant to
+	adjust growth rate. Recruits become juveniles and monthly 
+	cohorts are subjected to a user-specified mortality rate.
+	Juveniles become adults after a user-specified number of months.
+	Adults are also subjected to a different, user-specified 
+	mortality rate.  Logistic growth is achieved by linearly 
+	decreasing the RPI as the number of adults approaches the user-
+	specified carrying capacity (adults). The total population size
+	can be larger than the carryign capacity because eggs, larvae,
+	and juveniles are not counted towards carrying capacity.
+
+	From a population genetic stand point, reproduction occurs
+	according to the discrete Wright-Fisher model. Haplotypes are
+	drawn from an infinite pool of eggs.  Mortality stochastically
+	removes haplotypes from the population using the binomial 
+	distribution, with differnt rates of mortality for eggs, larvae,
+	juveniles, and adults.  
+
+	After a user-specified amount of time (usually the time from 
+	introduction to genetic sampling of the destination population),
+	the model is stopped and a genetic sample equal in size to that
+	of the vector of observed haplotypes from the destination 
+	population.  The haplotype richness and sample-size corrected
+	gene diversity (see Arlequin manual) are calculated from the 
+	simulated sample.  If the both the haplotype richness equals
+	the observed and the gene diversity falls within the 95% CI
+	of the observed, then it is recorded as a match.
+
+	The simulation is repeated as specified by the user, iterating
+	through bootstrap replicates for each number of colonists being
+	tested.  The number of colonists with the highest proportion of
+	matches to the observed population (i.e. highest joint 
+	likelihood) is deemed the most likely to have produce the
+	observed genetic diversity given the settings and the implicit
+	model assumptions.
+
+	The user can iterate over multiple source population diversities
+	and destination population growth rates to test senstivity.
+
+Notes
+	The RData file produced can be exceedingly large. Setting the 
+	thin variable to TRUE only keeps the first and last month of 
+	the simulation.  Otherwise, all months are stored in the 
+	RData file.  To obtain population size plots for every month,
+	set thin to TRUE (the user might want to set a small number of 
+	bootstrap replicates). 
